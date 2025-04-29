@@ -17,6 +17,7 @@ namespace SchoolRegistryConsoleApp
                 {
                     MainMenu();
                     SubjectDisplay display;
+                    ParentsDisplay parents;
                     //operation = int.Parse(Console.ReadLine());
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);  // 'true' скрива натиснатия клавиш от екрана
                     char pressedKey = keyInfo.KeyChar;
@@ -42,6 +43,7 @@ namespace SchoolRegistryConsoleApp
                         case 3:
                             Console.Clear();
                             //display = new ParentsDisplay();
+                            parents = new ParentsDisplay();
                             break;
                         case 4:
                             Console.Clear();

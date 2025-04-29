@@ -19,7 +19,8 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(@"Server=Gummie\SQLEXPRESS;Database=SchoolRegistryDB;Integrated Security = true;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-AVBG2ST\SQLEXPRESS;Database=SchoolRegistryDB;Integrated Security = true;TrustServerCertificate=true");
+            //DESKTOP-AVBG2ST\SQLEXPRESS - Ves database  \\  Gummie\SQLEXPRESS - Alex database
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

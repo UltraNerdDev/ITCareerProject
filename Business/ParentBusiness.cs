@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    internal class ParentBusiness
+    public class ParentBusiness
     {
         private SchoolRegistryContext context;
 
