@@ -34,7 +34,7 @@ namespace Data.Models
         public override string ToString()
         {
             return $"TeacherID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
-                $"Phone number: {(Phone != null ? "None" : "None"),-12}\nEmail: {Email}" +
+                $"Phone number: {(Phone != null ? Phone : "None"),-12}\nEmail: {Email}" +
                 $"\nSubject: {(Subject != null ? Subject.Name : "None")}";
         }
     }

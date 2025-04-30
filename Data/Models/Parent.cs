@@ -30,7 +30,7 @@ namespace Data.Models
         public override string ToString()
         {
             return $"ParentID: {Id,-8}\nFirst name: {FirstName, -10}\nLast name: {LastName,-10}\n" +
-                $"Phone number: {(PhoneNumber != null ? "None" : "None"),-12}\nEmail: {Email}";
+                $"Phone number: {(PhoneNumber != null ? PhoneNumber : "None"),-12}\nEmail: {Email}";
         }
     }
 }

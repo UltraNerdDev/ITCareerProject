@@ -31,7 +31,7 @@ namespace Data.Models
         [Required]
         public string Email { get; set; }
 
-        public DateTime EnrollmentDate { get; set; }
+        public DateOnly EnrollmentDate { get; set; }
 
         // Връзка с родител
         [Required]
@@ -45,7 +45,7 @@ namespace Data.Models
         public override string ToString()
         {
             return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
-                $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate.ToShortDateString(),-12}\n" +
+                $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
                 $"ParentID: {(Parent != null ? Parent.FirstName + " " + Parent.LastName : "None"),-20}";
         }
     }
