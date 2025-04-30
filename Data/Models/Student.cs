@@ -47,7 +47,8 @@ namespace Data.Models
         {
             return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
                 $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
-                $"ParentID: {(Parent != null ? Parent.FirstName + " " + Parent.LastName : "None"),-20}";
+                $"ParentID: {(ParentId != null ? ParentId : "None"),-20}";
+               // $"ParentID: {(Parent != null ? Parent.FirstName + " " + Parent.LastName : "None"),-20}";
         }
     }
 }
