@@ -33,7 +33,7 @@ namespace SchoolRegistryConsoleApp
                     {
                         case 1:
                             Console.Clear();
-                            //display = new GradesDisplay();
+                            display = new GradesDisplay();
                             break;
                         case 2:
                             Console.Clear();
