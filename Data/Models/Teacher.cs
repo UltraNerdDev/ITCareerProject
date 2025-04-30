@@ -11,7 +11,7 @@ namespace Data.Models
     public class Teacher
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  // Добави тази анотация
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
 
         [Required]
@@ -25,12 +25,17 @@ namespace Data.Models
 
         public string Phone { get; set; }
 
-        // Преподаващ предмет
         public int? SubjectId { get; set; }
         [ForeignKey(nameof(SubjectId))]
         public Subject Subject { get; set; }
 
-        // Връзка към клас (ако е класен ръководител)
         public ICollection<ClassGroup> Classes { get; set; }
+
+        public override string ToString()
+        {
+            return $"TeacherID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
+                $"Phone number: {(Phone != null ? "None" : "None"),-12}\nEmail: {Email}" +
+                $"\nSubject: {(Subject != null ? Subject.Name : "None")}";
+        }
     }
 }

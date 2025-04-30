@@ -11,11 +11,11 @@ namespace Data.Models
     public class Grade
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  // Добави тази анотация
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  
         public int Id { get; set; }
 
         [Required]
-        public double Value { get; set; } // Примерно 5.50
+        public double Value { get; set; }
 
         [Required]
         public DateOnly Date { get; set; }
@@ -39,5 +39,12 @@ namespace Data.Models
         public int TeacherId { get; set; }
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; }
+
+        public override string ToString()
+        {
+            return $"GradeID: {Id,-8}\nGrade value: {Value,-8:f2}\nDate: {Date,-8}\nComment name: {Comment}\n" +
+                $"Student: {(Student != null ? Student.FirstName : "none")}\nTeacher: {(Teacher != null ? Teacher.FirstName : "none")}" +
+                $"Subject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
+        }
     }
 }

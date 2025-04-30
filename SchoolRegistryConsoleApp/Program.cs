@@ -16,8 +16,7 @@ namespace SchoolRegistryConsoleApp
                 if (operation != closeOperationId)
                 {
                     MainMenu();
-                    SubjectDisplay display;
-                    ParentsDisplay parents;
+                    Display display;
                     //operation = int.Parse(Console.ReadLine());
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);  // 'true' скрива натиснатия клавиш от екрана
                     char pressedKey = keyInfo.KeyChar;
@@ -38,12 +37,12 @@ namespace SchoolRegistryConsoleApp
                             break;
                         case 2:
                             Console.Clear();
-                            //display = new ClassesDisplay();
+                            display = new ClassGroupDisplay();
                             break;
                         case 3:
                             Console.Clear();
                             //display = new ParentsDisplay();
-                            parents = new ParentsDisplay();
+                            display = new ParentsDisplay();
                             break;
                         case 4:
                             Console.Clear();
@@ -55,7 +54,7 @@ namespace SchoolRegistryConsoleApp
                             break;
                         case 6:
                             Console.Clear();
-                            //display = new TeachersDisplay();
+                            display = new TeachersDisplay();
                             break;
                         case 7:
                             Environment.Exit(0);

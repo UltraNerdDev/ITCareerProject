@@ -1,5 +1,4 @@
-﻿using Azure;
-using Business;
+﻿using Business;
 using Data.Models;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
-    public class SubjectDisplay : Display
+    public class ClassGroupDisplay : Display
     {
         private int closeOperationId = 6;
-        private SubjectBusiness business = new SubjectBusiness();
+        private ClassGroupBusiness classBusiness = new ClassGroupBusiness();
+        private TeacherBusiness teacherBusiness = new TeacherBusiness();
 
-        public SubjectDisplay()
+        public ClassGroupDisplay()
         {
             Input();
         }
@@ -24,18 +24,18 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('=', 67));
-            Console.WriteLine(@"███████╗██╗   ██╗██████╗      ██╗███████╗ ██████╗████████╗███████╗ 
-██╔════╝██║   ██║██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝ 
-███████╗██║   ██║██████╔╝     ██║█████╗  ██║        ██║   ███████╗ 
-╚════██║██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   ╚════██║ 
-███████║╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║ 
-╚══════╝ ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝ ");
+            Console.WriteLine(@" ██████╗██╗      █████╗ ███████╗███████╗███████╗███████╗           
+██╔════╝██║     ██╔══██╗██╔════╝██╔════╝██╔════╝██╔════╝           
+██║     ██║     ███████║███████╗███████╗█████╗  ███████╗           
+██║     ██║     ██╔══██║╚════██║╚════██║██╔══╝  ╚════██║           
+╚██████╗███████╗██║  ██║███████║███████║███████╗███████║           
+ ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝           ");
             Console.WriteLine(new string('=', 67));
-            Console.WriteLine("1. List all subjects" + new string(' ', 47));
-            Console.WriteLine("2. Add new subject" + new string(' ', 49));
-            Console.WriteLine("3. Update subject" + new string(' ', 50));
-            Console.WriteLine("4. Fetch subject by ID" + new string(' ', 45));
-            Console.WriteLine("5. Delete subject by ID" + new string(' ', 44));
+            Console.WriteLine("1. List all class groups" + new string(' ', 43));
+            Console.WriteLine("2. Add new class group" + new string(' ', 45));
+            Console.WriteLine("3. Update class group" + new string(' ', 46));
+            Console.WriteLine("4. Fetch class group by ID" + new string(' ', 41));
+            Console.WriteLine("5. Delete class group by ID" + new string(' ', 40));
             Console.WriteLine("6. Exit" + new string(' ', 60));
             Console.WriteLine("ENTER A COMMAND ID: " + new string(' ', 47));
             Console.ForegroundColor = ConsoleColor.White;
@@ -47,15 +47,25 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Subject subject = new Subject();
+            ClassGroup group = new ClassGroup();
             Console.WriteLine("Enter name: ");
-            subject.Name = Console.ReadLine();
-            business.Add(subject);
+            group.Name = Console.ReadLine();
+            Console.WriteLine("Enter year: ");
+            group.Year = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter teacher ID:");
+            var items = teacherBusiness.GetAll();
+            Console.WriteLine("Avaliable teachers:");
+            if(items.Count == 0)
+                Console.WriteLine("None");
+            else
+                foreach (var item in items)
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
+            classBusiness.Add(group);
             Console.Clear();
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Subject \"{subject.Name}\" added.");
+            Console.WriteLine($"Class group \"{group.Name}\" added.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
@@ -66,19 +76,23 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 24));
-            Console.WriteLine(@"╔═╗╦ ╦╔╗  ╦╔═╗╔═╗╔╦╗╔═╗ 
-╚═╗║ ║╠╩╗ ║║╣ ║   ║ ╚═╗ 
-╚═╝╚═╝╚═╝╚╝╚═╝╚═╝ ╩ ╚═╝ "); 
-            Console.WriteLine(new string('-', 24));
-            var items = business.GetAll();
-            foreach (var item in items)
-                Console.WriteLine($"{item.Id, -5} {item.Name, 15}   ");
-            Console.WriteLine(new string('-', 24));
+            Console.WriteLine(new string('-', 25));
+            Console.WriteLine(@"╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗    
+║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗    
+╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝    ");
+            Console.WriteLine(new string('-', 25));
+            var items = classBusiness.GetAll();
+            if(items.Count == 0)           
+                Console.WriteLine("No class groups found    ");
+            else
+                foreach (var item in items)
+                    Console.WriteLine($"{item.Id,-5} {item.Name,5} {(item.Teacher != null ? item.Teacher.FirstName : "No Teacher"),12} ");
+            Console.WriteLine(new string('-', 25));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
+        
         public override void Update()
         {
             Console.Clear();
@@ -90,17 +104,23 @@ namespace SchoolRegistryConsoleApp.Presentation
             char pressedKey = keyInfo.KeyChar;
             if (char.IsDigit(pressedKey))
                 id = int.Parse(pressedKey.ToString());
-            Subject subject = business.Get(id);
-            if (subject != null)
+            ClassGroup classGroup = classBusiness.Get(id);
+            if (classGroup != null)
             {
                 Console.WriteLine("Enter name: ");
-                subject.Name = Console.ReadLine();
-                business.Update(subject);
+                classGroup.Name = Console.ReadLine();
+                Console.WriteLine("Avaliable teachers");
+                var items = teacherBusiness.GetAll();
+                foreach (var item in items)
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
+                Console.WriteLine("Enter teacher ID: ");
+                classGroup.TeacherId = int.Parse(Console.ReadLine());
+                classBusiness.Update(classGroup);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with Id: {id} updated.");
+                Console.WriteLine($"Class with Id: {id} updated.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -110,7 +130,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with Id: {id} not found");
+                Console.WriteLine($"Class with Id: {id} not found");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -121,27 +141,27 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
             int id = 0;
-            Console.WriteLine("All current subjects:");
+            Console.WriteLine("All current Classes:");
             ListAll();
             Console.WriteLine("Enter ID to fetch: ");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             char pressedKey = keyInfo.KeyChar;
             if (char.IsDigit(pressedKey))
                 id = int.Parse(pressedKey.ToString());
-            Subject subject = business.Get(id);
-            if (subject != null)
+            ClassGroup classGroup = classBusiness.Get(id);
+            if (classGroup != null)
             {
-                Console.WriteLine(subject);
+                Console.WriteLine(classGroup);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
             else
-            {               
+            {
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine("There is no such subject to fetch, please choose valid ID");
+                Console.WriteLine("There is no such class group to fetch, please choose valid ID");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -152,19 +172,19 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
             int id = 0;
-            Console.WriteLine("All current subjects:");
+            Console.WriteLine("All current class groups:");
             ListAll();
             Console.Write("Enter ID to delete: ");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             char pressedKey = keyInfo.KeyChar;
             if (char.IsDigit(pressedKey))
                 id = int.Parse(pressedKey.ToString());
-            business.Delete(id);
+            classBusiness.Delete(id);
             Console.Clear();
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Subject with id:{id} deleted");
+            Console.WriteLine($"Class group with id:{id} deleted");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

@@ -36,7 +36,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                     if (char.IsDigit(pressedKey))
                         operation = int.Parse(pressedKey.ToString());
                     else
-                        operation = -1;  // Ако не е цифра, не правим нищо
+                        operation = -1; 
                     switch (operation)
                     {
                         case 1:

@@ -11,10 +11,15 @@ namespace Data.Models
     public class Subject
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  // Добави тази анотация
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return $"SubjectID: {Id, -8}\nSubject name: {Name, -12}";
+        }
     }
 }

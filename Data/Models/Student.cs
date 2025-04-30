@@ -11,7 +11,7 @@ namespace Data.Models
     public class Student
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  // Добави тази анотация
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  
         public int Id { get; set; }
 
         [Required]
@@ -41,5 +41,12 @@ namespace Data.Models
 
         // Връзка към оценките
         public ICollection<Grade> Grades { get; set; }
+
+        public override string ToString()
+        {
+            return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
+                $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate.ToShortDateString(),-12}\n" +
+                $"ParentID: {(Parent != null ? Parent.FirstName + " " + Parent.LastName : "None"),-20}";
+        }
     }
 }
