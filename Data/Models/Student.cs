@@ -37,7 +37,8 @@ namespace Data.Models
         [Required]
         public int? ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
-        public Parent Parent { get; set; }
+
+        public  Parent Parent { get; set; }
 
         // Връзка към оценките
         public ICollection<Grade> Grades { get; set; }

@@ -91,7 +91,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("No students found       ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15} {item.LastName,15} {item.Age,12}");
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName,4} {item.LastName,4} {item.Age}");
             Console.WriteLine(new string('-', 24));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -114,15 +114,15 @@ namespace SchoolRegistryConsoleApp.Presentation
                 student.FirstName = Console.ReadLine();
                 Console.WriteLine("Enter Last Name: ");
                 student.LastName = Console.ReadLine();
-                Console.WriteLine("Ënter Phone number: ");
+                Console.WriteLine("Ënter Age: ");
                 student.Age = int.Parse(Console.ReadLine());
                 Console.WriteLine("Ënter Class Group Id number: ");
-                var itim = studentBusiness.GetAll();
+                var itim = groupBusiness.GetAll();
                 if (itim.Count == 0)
                     Console.WriteLine("None");
                 else
                     foreach (var item in itim)
-                        Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
+                        Console.WriteLine($"{item.Id,-5} {item.Name,15}");
                 Console.WriteLine("Avaliable class groups");
                 student.ClassGroupId = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter email: ");

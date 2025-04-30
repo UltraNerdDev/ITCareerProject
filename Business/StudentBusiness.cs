@@ -54,7 +54,7 @@ namespace Business
         {
             using (context = new SchoolRegistryContext())
             {
-                var item = context.Teachers.Find(id);
+                var item = context.Students.Find(id);
                 if (item != null)
                 {
                     context.Remove(item);
