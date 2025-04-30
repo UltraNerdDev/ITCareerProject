@@ -64,7 +64,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 24));
             Console.WriteLine(@"╔═╗╦ ╦╔╗  ╦╔═╗╔═╗╔╦╗╔═╗ 
