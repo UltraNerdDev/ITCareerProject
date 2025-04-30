@@ -89,7 +89,7 @@ namespace SchoolRegistryConsoleApp
      ██ ██      ██   ██ ██    ██ ██    ██ ██          ██   ██ ██      ██    ██ ██      ██    ██    ██   ██    ██        
 ███████  ██████ ██   ██  ██████   ██████  ███████     ██   ██ ███████  ██████  ██ ███████    ██    ██   ██    ██        ");
             Console.WriteLine(new string('=', 120));
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.WriteLine("1. Grades" + new string(' ', 111));
             Console.WriteLine("2. Classes" + new string(' ', 110));

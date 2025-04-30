@@ -64,7 +64,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 22));
             Console.WriteLine(@"╔═╗╔═╗╦═╗╔═╗╔╗╔╔╦╗╔═╗ 
@@ -76,7 +76,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("No parents found      ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15}    ");
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}   ");
             Console.WriteLine(new string('-', 22));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
