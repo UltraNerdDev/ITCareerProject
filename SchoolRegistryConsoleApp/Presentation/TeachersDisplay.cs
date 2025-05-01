@@ -112,7 +112,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             };
 
             teacherBusiness.Add(teacher);
-            Console.WriteLine("Teacher added successfully!");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Teacher added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         public override void ListAll()
@@ -128,7 +135,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 66));
             var items = teacherBusiness.GetAll();
             if (items.Count == 0)
-                Console.WriteLine("No teachers found       ");
+                Console.WriteLine("No teachers found                                                 ");
             else
                 foreach (var item in items)
                     Console.WriteLine(item);

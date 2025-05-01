@@ -185,7 +185,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 49));
             var items = gradeBusiness.GetAll();
             if (items.Count == 0)
-                Console.WriteLine("No grades found     ");
+                Console.WriteLine("No grades found                                  ");
             else
                 foreach (var item in items)
                     Console.WriteLine(item);

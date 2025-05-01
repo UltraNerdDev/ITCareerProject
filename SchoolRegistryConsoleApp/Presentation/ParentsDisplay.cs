@@ -76,7 +76,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             };
 
             business.Add(parent);
-            Console.WriteLine("Parent added successfully!");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Parent added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
         public override void ListAll()
         {

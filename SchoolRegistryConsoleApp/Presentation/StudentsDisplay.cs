@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
@@ -89,8 +90,16 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("Enter student's age: (optional)");
             string ageString = Console.ReadLine()?.Trim();
             Console.WriteLine("Enter enrolment date (optional): YYYY");
-            int? enrolmentDate = int.Parse(Console.ReadLine());
+            string dateString = Console.ReadLine()?.Trim();
 
+            int? date = null;
+            if(!string.IsNullOrWhiteSpace(dateString))
+            {
+                if (int.TryParse(dateString, out int parsedDate))
+                    date = parsedDate;
+                else
+                    Console.WriteLine("Invalid date entered. Date will be left empty.");
+            }
 
             int? age = null;
             if (!string.IsNullOrWhiteSpace(ageString))
@@ -103,19 +112,28 @@ namespace SchoolRegistryConsoleApp.Presentation
 
             var omom = groupBusiness.GetAll();
             Console.WriteLine("Avalible classes:");
-            Console.WriteLine(new string('-', 25));
+            Console.WriteLine(new string('-', 21));
             if (omom.Count == 0)
                 Console.WriteLine("None");
             else
                 foreach (var item in omom)
-                    Console.WriteLine($"ID: {item.Id,-5} {item.Name,7}");
-            Console.WriteLine(new string('-', 25));
+                    Console.WriteLine($"{item.Id,-5} {item.Name,7}");
+            Console.WriteLine(new string('-', 21));
             // Get valid class group ID
             int classGroupId = InputHelper.GetValidForeignKey(
                 "Enter class group ID:",
                 context => context.Classes
             );
 
+            var itim = parentBusiness.GetAll();
+            Console.WriteLine("Avalible parents:");
+            Console.WriteLine(new string('-', 21));
+            if (itim.Count == 0)
+                Console.WriteLine("None");
+            else
+                foreach (var item in itim)
+                    Console.WriteLine($"{item.Id,-3} {item.FirstName,6} {item.LastName,6}");
+            Console.WriteLine(new string('-', 21));
             // Get valid parent ID
             int parentId = InputHelper.GetValidForeignKey(
                 "Enter parent ID:",
@@ -129,12 +147,19 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Email = email,
                 Age = age,
                 ClassGroupId = classGroupId,
-                EnrollmentDate = enrolmentDate,
+                EnrollmentDate = date,
                 ParentId = parentId
             };
 
             studentBusiness.Add(student);
-            Console.WriteLine("Student added successfully!");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Student added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
         public override void ListAll()
         {
@@ -149,7 +174,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 69));
             var items = studentBusiness.GetAll();
             if (items.Count == 0)
-                Console.WriteLine("No students found       ");
+                Console.WriteLine("No students found                                                    ");
             else
                 foreach (var item in items)
                     //Console.WriteLine($"{item.Id,-5} {item.FirstName,4} {item.LastName,4} {item.Age}");

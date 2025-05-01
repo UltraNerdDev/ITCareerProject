@@ -67,7 +67,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             };
 
             business.Add(subject);
-            Console.WriteLine("Subject added successfully!");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Subject added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         public override void ListAll()

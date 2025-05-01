@@ -52,7 +52,7 @@ namespace Data.Models
                 $"{"Student ID:",-25}{Id,-44}\n" +
                 $"{"First name:",-25}{FirstName,-44}\n" +
                 $"{"Last name:",-25}{LastName,-44}\n" +
-                $"{"Age:",-25}{Age,-44}\n" +
+                $"{"Age:",-25}{(Age != null ? Age : "Empty"),-44}\n" +
                 $"{"Email:",-25}{Email,-44}\n" +
                 $"{"Enrollment date:",-25}{(EnrollmentDate != null ? EnrollmentDate : "None"),-44}\n" +
                 $"{"Parent ID:",-25}{(ParentId != null ? ParentId : "None"),-44}\n" +

@@ -87,12 +87,14 @@ namespace SchoolRegistryConsoleApp.Presentation
 
             Console.WriteLine("Avalible teachers:");
             var items = teacherBusiness.GetAll();
+            Console.WriteLine(new string('-', 25));
             if (items.Count == 0)
                 Console.WriteLine("None");
             else
                 foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.FirstName, 15}");
-
+            Console.WriteLine(new string('-', 25));
+            // Get valid teacher ID
             int teachedId = InputHelper.GetValidForeignKey(
                     "Enter teacher ID:",
                     context => context.Teachers
@@ -106,7 +108,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             };
 
             classBusiness.Add(classGroup);
-            Console.WriteLine("Class added successfully!");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Class added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         public override void ListAll()
@@ -122,7 +131,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 67));
             var items = classBusiness.GetAll();
             if(items.Count == 0)           
-                Console.WriteLine("No class groups found    ");
+                Console.WriteLine("No class groups found                                              ");
             else
                 foreach (var item in items)
                     //Console.WriteLine($"{item.Id,-5} {item.Name,5} {(item.Teacher != null ? item.Teacher.FirstName : "No Teacher"),12} ");
