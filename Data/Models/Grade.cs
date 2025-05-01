@@ -20,7 +20,7 @@ namespace Data.Models
         [Required]
         public DateOnly Date { get; set; }
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
         // Връзка към ученик
         [Required]
@@ -42,9 +42,18 @@ namespace Data.Models
 
         public override string ToString()
         {
-            return $"GradeID: {Id,-8}\nGrade value: {Value,-8:f2}\nDate: {Date,-8}\nComment name: {Comment}\n" +
-                $"Student: {(Student != null ? Student.FirstName : "none")}\nTeacher: {(Teacher != null ? Teacher.FirstName : "none")}" +
-                $"\nSubject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
+            //return $"GradeID: {Id,-8}\nGrade value: {Value,-8:f2}\nDate: {Date,-8}\nComment name: {Comment}\n" +
+            //    $"Student: {(Student != null ? Student.FirstName : "none")}\nTeacher: {(Teacher != null ? Teacher.FirstName : "none")}" +
+            //    $"\nSubject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
+            return
+                $"{"Grade ID:",-25}{Id,-30}\n" +
+                $"{"Value:",-25}{Value,-30}\n" +
+                $"{"Date:",-25}{Date,-30}\n" +
+                $"{"Comment:",-25}{Comment,-30}\n" +
+                $"{"Student:",-25}{Student.FirstName,-30}\n" +
+                $"{"Subject:",-25}{Subject.Name,-30}\n" +
+                $"{"Teacher ID:",-25}{TeacherId,-30}\n" +
+                $"{new string(' ', 55)}";
         }
     }
 }

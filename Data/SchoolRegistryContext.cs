@@ -24,11 +24,6 @@ namespace Data
             //Gummie\SQLEXPRESS - Alex database
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Grade>()
-                .Property(n => n.Id)
-                .IsRequired(true);
-        }
+        //OnModelCreating method is not required here, because of the anotations in the models
     }
 }

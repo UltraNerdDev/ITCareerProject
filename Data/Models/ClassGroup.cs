@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace Data.Models
 {
@@ -26,8 +27,13 @@ namespace Data.Models
 
         public override string ToString()               
         {
-            return $"Class ID: {Id, -8}\nClass name: {Name, -8}\nClass year: {Year, -8}\n" +
-                $"TeacherID: {(Teacher != null ? Teacher.FirstName : "None"), -8}";
+            //return $"Class ID: {Id, -8}\nClass name: {Name, -8}\nClass year: {Year, -8}\n" +
+            //    $"TeacherID: {(Teacher != null ? Teacher.FirstName : "None"), -8}";
+            return
+                $"{"Class ID:",-25}{Id,-30}\n" +
+                $"{"Class name:",-25}{Name,-30}\n" +
+                $"{"Class teacher:",-25}{Teacher.FirstName + " " + Teacher.LastName,-30}\n" +
+                $"{new string(' ', 55)}";
         }
     }
 }

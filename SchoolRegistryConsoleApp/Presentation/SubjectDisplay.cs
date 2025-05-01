@@ -47,17 +47,27 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Subject subject = new Subject();
-            Console.WriteLine("Enter name: ");
-            subject.Name = Console.ReadLine();
+            //Subject subject = new Subject();
+            //Console.WriteLine("Enter name: ");
+            //subject.Name = Console.ReadLine();
+            //business.Add(subject);
+            //Console.Clear();
+            //ShowMenu();
+            //Console.ForegroundColor = ConsoleColor.DarkRed;
+            //Console.BackgroundColor = ConsoleColor.DarkGray;
+            //Console.WriteLine($"Subject \"{subject.Name}\" added.");
+            //Console.ForegroundColor = ConsoleColor.White;
+            //Console.BackgroundColor = ConsoleColor.Black;
+
+            string name = InputHelper.GetNonEmptyString("Enter subject's name:");
+
+            var subject = new Subject
+            {
+                Name = name
+            };
+
             business.Add(subject);
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Subject \"{subject.Name}\" added.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("Subject added successfully!");
         }
 
         public override void ListAll()
@@ -72,8 +82,11 @@ namespace SchoolRegistryConsoleApp.Presentation
 ╚═╝╚═╝╚═╝╚╝╚═╝╚═╝ ╩ ╚═╝ "); 
             Console.WriteLine(new string('-', 24));
             var items = business.GetAll();
-            foreach (var item in items)
-                Console.WriteLine($"{item.Id, -5} {item.Name, 15}   ");
+            if(items.Count == 0)
+                Console.WriteLine("None                    ");
+            else
+                foreach (var item in items)
+                    Console.WriteLine($"{item.Id,-5} {item.Name,15}   ");
             Console.WriteLine(new string('-', 24));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -83,24 +96,53 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            int id = 0;
+            //int id = 0;
+            //ListAll();
+            //Console.WriteLine("Enter ID to update: ");
+            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            //char pressedKey = keyInfo.KeyChar;
+            //if (char.IsDigit(pressedKey))
+            //    id = int.Parse(pressedKey.ToString());
+            //Subject subject = business.Get(id);
+            //if (subject != null)
+            //{
+            //    Console.WriteLine("Enter name: ");
+            //    subject.Name = Console.ReadLine();
+            //    business.Update(subject);
+            //    Console.Clear();
+            //    ShowMenu();
+            //    Console.ForegroundColor = ConsoleColor.DarkRed;
+            //    Console.BackgroundColor = ConsoleColor.DarkGray;
+            //    Console.WriteLine($"Subject with Id: {id} updated.");
+            //    Console.ForegroundColor = ConsoleColor.White;
+            //    Console.BackgroundColor = ConsoleColor.Black;
+            //}
+            //else
+            //{
+            //    Console.Clear();
+            //    ShowMenu();
+            //    Console.ForegroundColor = ConsoleColor.DarkRed;
+            //    Console.BackgroundColor = ConsoleColor.DarkGray;
+            //    Console.WriteLine($"Subject with Id: {id} not found");
+            //    Console.ForegroundColor = ConsoleColor.White;
+            //    Console.BackgroundColor = ConsoleColor.Black;
+            //}
             ListAll();
-            Console.WriteLine("Enter ID to update: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            char pressedKey = keyInfo.KeyChar;
-            if (char.IsDigit(pressedKey))
-                id = int.Parse(pressedKey.ToString());
+
+            int id = InputHelper.GetValidInt("Enter ID to update:");
             Subject subject = business.Get(id);
+
             if (subject != null)
             {
-                Console.WriteLine("Enter name: ");
-                subject.Name = Console.ReadLine();
+                subject.Name = InputHelper.GetNonEmptyString("Enter subject's name:");              
+
                 business.Update(subject);
+
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with Id: {id} updated.");
+                Console.WriteLine($"Subject with ID: {id} updated successfully.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -110,7 +152,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with Id: {id} not found");
+                Console.WriteLine($"Subject with ID: {id} not found.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -151,22 +193,35 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            int id = 0;
-            Console.WriteLine("All current subjects:");
+            //int id = 0;
+            //Console.WriteLine("All current subjects:");
+            //ListAll();
+            //Console.Write("Enter ID to delete: ");
+            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            //char pressedKey = keyInfo.KeyChar;
+            //if (char.IsDigit(pressedKey))
+            //    id = int.Parse(pressedKey.ToString());
+            //business.Delete(id);
+            //Console.Clear();
+            //ShowMenu();
+            //Console.ForegroundColor = ConsoleColor.DarkRed;
+            //Console.BackgroundColor = ConsoleColor.DarkGray;
+            //Console.WriteLine($"Subject with id:{id} deleted");
+            //Console.ForegroundColor = ConsoleColor.White;
+            //Console.BackgroundColor = ConsoleColor.Black;
+
             ListAll();
-            Console.Write("Enter ID to delete: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            char pressedKey = keyInfo.KeyChar;
-            if (char.IsDigit(pressedKey))
-                id = int.Parse(pressedKey.ToString());
-            business.Delete(id);
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Subject with id:{id} deleted");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+
+            int id = InputHelper.GetValidInt("Enter ID to delete:");
+            Subject subject = business.Get(id);
+
+            if (subject != null)
+            {
+                business.Delete(id);
+                Console.WriteLine($"Subject with ID: {id} deleted successfully.");
+            }
+            else
+                Console.WriteLine($"Subject with ID: {id} not found.");
         }
     }
 }

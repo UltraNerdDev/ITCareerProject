@@ -20,11 +20,11 @@ namespace Data.Models
         [Required]
         public string LastName { get; set; }
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         //Връзка с клас
         [Required]
-        public int? ClassGroupId { get; set; }
+        public int ClassGroupId { get; set; }
         [ForeignKey(nameof(ClassGroupId))]
         public ClassGroup ClassGroup { get; set; }
 
@@ -35,20 +35,28 @@ namespace Data.Models
 
         // Връзка с родител
         [Required]
-        public int? ParentId { get; set; }
+        public int ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
 
-        public  Parent Parent { get; set; }
+        public Parent Parent { get; set; }
 
         // Връзка към оценките
         public ICollection<Grade> Grades { get; set; }
 
         public override string ToString()
         {
-            return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
-                $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
-                $"ParentID: {(ParentId != null ? ParentId : "None"),-20}";
-               // $"ParentID: {(Parent != null ? Parent.FirstName + " " + Parent.LastName : "None"),-20}";
+            //return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
+            //    $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
+            //    $"ParentID: {(ParentId != null ? ParentId : "None"),-20}";
+            return
+                $"{"Student ID:",-25}{Id,-30}\n" +
+                $"{"First name:",-25}{FirstName,-30}\n" +
+                $"{"Last name:",-25}{LastName,-30}\n" +
+                $"{"Age:",-25}{Age,-30}\n" +
+                $"{"Email:",-25}{Email,-30}\n" +
+                $"{"Enrollment date:",-25}{(EnrollmentDate != null ? EnrollmentDate : "None"),-30}\n" +
+                $"{"Parent ID:",-25}{(ParentId != null ? ParentId : "None"),-30}\n" +
+                $"{new string(' ', 55)}";
         }
     }
 }
