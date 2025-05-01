@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Data;
 using Data;
 using Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
@@ -19,7 +20,10 @@ namespace Business
         {
             using (context = new SchoolRegistryContext())
             {
-                return context.Classes.ToList();
+                return context.Classes
+                     .Include(g => g.Teacher)
+                     .ToList();
+                // return context.Classes.ToList();
             }
         }
 
