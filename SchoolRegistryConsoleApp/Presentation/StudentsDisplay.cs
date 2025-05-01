@@ -89,7 +89,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("Enter student's age: (optional)");
             string ageString = Console.ReadLine()?.Trim();
             Console.WriteLine("Enter enrolment date (optional): YYYY");
-            DateOnly enrolmentDate = DateOnly.Parse(Console.ReadLine());
+            int? enrolmentDate = int.Parse(Console.ReadLine());
 
 
             int? age = null;
@@ -101,11 +101,22 @@ namespace SchoolRegistryConsoleApp.Presentation
                     Console.WriteLine("Invalid age entered. Age will be left empty.");
             }
 
+            var omom = groupBusiness.GetAll();
+            Console.WriteLine("Avalible classes:");
+            Console.WriteLine(new string('-', 25));
+            if (omom.Count == 0)
+                Console.WriteLine("None");
+            else
+                foreach (var item in omom)
+                    Console.WriteLine($"ID: {item.Id,-5} {item.Name,7}");
+            Console.WriteLine(new string('-', 25));
+            // Get valid class group ID
             int classGroupId = InputHelper.GetValidForeignKey(
                 "Enter class group ID:",
                 context => context.Classes
             );
 
+            // Get valid parent ID
             int parentId = InputHelper.GetValidForeignKey(
                 "Enter parent ID:",
                 context => context.Parents
@@ -131,11 +142,11 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 24));
-            Console.WriteLine(@"╔═╗╔╦╗╦ ╦╔╦╗╔═╗╔╗╔╔╦╗╔═╗
-╚═╗ ║ ║ ║ ║║║╣ ║║║ ║ ╚═╗
-╚═╝ ╩ ╚═╝═╩╝╚═╝╝╚╝ ╩ ╚═╝");
-            Console.WriteLine(new string('-', 24));
+            Console.WriteLine(new string('-', 69));
+            Console.WriteLine(@"╔═╗╔╦╗╦ ╦╔╦╗╔═╗╔╗╔╔╦╗╔═╗                                             
+╚═╗ ║ ║ ║ ║║║╣ ║║║ ║ ╚═╗                                             
+╚═╝ ╩ ╚═╝═╩╝╚═╝╝╚╝ ╩ ╚═╝                                             ");
+            Console.WriteLine(new string('-', 69));
             var items = studentBusiness.GetAll();
             if (items.Count == 0)
                 Console.WriteLine("No students found       ");
@@ -145,7 +156,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                     Console.WriteLine(item);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 24));
+            Console.WriteLine(new string('-', 69));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

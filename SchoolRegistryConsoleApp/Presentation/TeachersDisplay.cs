@@ -122,17 +122,17 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 66));
-            Console.WriteLine(@"╔╦╗╔═╗╔═╗╔═╗╦ ╦╔═╗╦═╗╔═╗
- ║ ║╣ ╠═╣║  ╠═╣║╣ ╠╦╝╚═╗
- ╩ ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩╚═╚═╝");
-            Console.WriteLine(new string('-', 60));
+            Console.WriteLine(@"╔╦╗╔═╗╔═╗╔═╗╦ ╦╔═╗╦═╗╔═╗                                          
+ ║ ║╣ ╠═╣║  ╠═╣║╣ ╠╦╝╚═╗                                          
+ ╩ ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩╚═╚═╝                                          ");
+            Console.WriteLine(new string('-', 66));
             var items = teacherBusiness.GetAll();
             if (items.Count == 0)
                 Console.WriteLine("No teachers found       ");
             else
                 foreach (var item in items)
                     Console.WriteLine(item);
-            Console.WriteLine(new string('-', 60));
+            Console.WriteLine(new string('-', 66));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

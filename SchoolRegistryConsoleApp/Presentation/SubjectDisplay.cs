@@ -83,7 +83,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 24));
             var items = business.GetAll();
             if(items.Count == 0)
-                Console.WriteLine("None                    ");
+                Console.WriteLine("No subjects found       ");
             else
                 foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.Name,15}   ");

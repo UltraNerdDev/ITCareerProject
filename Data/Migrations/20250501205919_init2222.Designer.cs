@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(SchoolRegistryContext))]
-    [Migration("20250501145818_inital")]
-    partial class inital
+    [Migration("20250501205919_init2222")]
+    partial class init2222
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,8 +133,8 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("EnrollmentDate")
-                        .HasColumnType("date");
+                    b.Property<int?>("EnrollmentDate")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

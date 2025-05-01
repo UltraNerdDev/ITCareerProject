@@ -130,8 +130,8 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("EnrollmentDate")
-                        .HasColumnType("date");
+                    b.Property<int?>("EnrollmentDate")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

@@ -38,13 +38,13 @@ namespace Data.Models
             //    $"\nSubject: {(Subject != null ? Subject.Name : "None"), -60}";
 
             return
-                $"{"TeacherID:",-15}{Id,-45}\n" +
-                $"{"First name:",-15}{FirstName,-45}\n" +
-                $"{"Last name:",-15}{LastName,-45}\n" +
-                $"{"Phone number:",-15}{(Phone ?? "None"),-45}\n" +
-                $"{"Email:",-15}{Email,-45}\n" +
-                $"{"Subject:",-15}{(Subject?.Name ?? "None"),-45}\n" +
-                $"{new string(' ', 60)}";
+                $"{"TeacherID:",-15}{Id,-51}\n" +
+                $"{"First name:",-15}{FirstName,-51}\n" +
+                $"{"Last name:",-15}{LastName,-51}\n" +
+                $"{"Phone number:",-15}{(Phone ?? "None"),-51}\n" +
+                $"{"Email:",-15}{Email,-51}\n" +
+                $"{"Subject:",-15}{(Subject?.Name ?? "None"),-51}\n" +
+                $"{new string(' ', 66)}";
         }
     }
 }

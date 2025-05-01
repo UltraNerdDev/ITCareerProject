@@ -107,11 +107,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (string.IsNullOrWhiteSpace(comment)) comment = "none";
 
             var itim = studentBusiness.GetAll();
+            Console.WriteLine("Avalible students:");
+            Console.WriteLine(new string('-', 25));
             if (itim.Count == 0)
                 Console.WriteLine("None");
             else
                 foreach (var item in itim)
                     Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
+            Console.WriteLine(new string('-', 25));
             // Get valid student ID
             int studentId = InputHelper.GetValidForeignKey(
                 "Enter student ID:",
@@ -119,11 +122,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             );
 
             var items = subjectBusiness.GetAll();
+            Console.WriteLine("Avalible subjects:");
+            Console.WriteLine(new string('-', 25));
             if (items.Count == 0)
-                Console.WriteLine("None");
+            Console.WriteLine("None");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.Name,15}");
+                    Console.WriteLine($"ID: {item.Id,-5} {item.Name,15}");
+            Console.WriteLine(new string('-', 25));
             // Get valid subject ID
             int subjectId = InputHelper.GetValidForeignKey(
                 "Enter subject ID:",
@@ -131,11 +137,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             );
 
             var omom = teacherBusiness.GetAll();
+            Console.WriteLine("Avalible teachers:");
+            Console.WriteLine(new string('-', 25));
             if (omom.Count == 0)
                 Console.WriteLine("None");
             else
                 foreach (var item in omom)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
+                    Console.WriteLine($"ID: {item.Id,-5} {item.FirstName,7} {item.LastName}");
+            Console.WriteLine(new string('-', 25));
             // Get valid teacher ID
             int teacherId = InputHelper.GetValidForeignKey(
                 "Enter teacher ID:",
@@ -154,7 +163,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             };
 
             gradeBusiness.Add(grade);
-            Console.WriteLine("Grade added successfully");
+
+            Console.Clear();
+            ShowMenu();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Grade added successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
         public override void ListAll()
         {
@@ -162,18 +178,18 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 20));
-            Console.WriteLine(@"╔═╗╦═╗╔═╗╔╦╗╔═╗╔═╗  
-║ ╦╠╦╝╠═╣ ║║║╣ ╚═╗  
-╚═╝╩╚═╩ ╩═╩╝╚═╝╚═╝  ");
-            Console.WriteLine(new string('-', 20));
+            Console.WriteLine(new string('-', 49));
+            Console.WriteLine(@"╔═╗╦═╗╔═╗╔╦╗╔═╗╔═╗                               
+║ ╦╠╦╝╠═╣ ║║║╣ ╚═╗                               
+╚═╝╩╚═╩ ╩═╩╝╚═╝╚═╝                               ");
+            Console.WriteLine(new string('-', 49));
             var items = gradeBusiness.GetAll();
             if (items.Count == 0)
                 Console.WriteLine("No grades found     ");
             else
                 foreach (var item in items)
                     Console.WriteLine(item);
-            Console.WriteLine(new string('-', 20));
+            Console.WriteLine(new string('-', 49));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

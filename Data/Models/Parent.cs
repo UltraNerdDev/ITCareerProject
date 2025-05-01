@@ -33,12 +33,12 @@ namespace Data.Models
             //return $"ParentID: {Id,-8}\nFirst name: {FirstName, -10}\nLast name: {LastName,-10}\n" +
             //    $"Phone number: {(PhoneNumber != null ? PhoneNumber : "None"),-12}\nEmail: {Email}";
             return
-                $"{"Parent ID:",-25}{Id,-30}\n" +
-                $"{"First name:",-25}{FirstName,-30}\n" +
-                $"{"Last name:",-25}{LastName,-30}\n" +
-                $"{"Phone number:",-25}{(PhoneNumber != null ? PhoneNumber : "None"),-30}\n" +
-                $"{"Email:",-25}{Email,-30}\n" +
-                $"{new string(' ', 55)}";
+                $"{"Parent ID:",-25}{Id,-35}\n" +
+                $"{"First name:",-25}{FirstName,-35}\n" +
+                $"{"Last name:",-25}{LastName,-35}\n" +
+                $"{"Phone number:",-25}{(PhoneNumber != null ? PhoneNumber : "None"),-35}\n" +
+                $"{"Email:",-25}{Email,-35}\n" +
+                $"{new string(' ', 60)}";
         }
     }
 }

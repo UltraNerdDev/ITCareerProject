@@ -84,18 +84,18 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 22));
-            Console.WriteLine(@"╔═╗╔═╗╦═╗╔═╗╔╗╔╔╦╗╔═╗ 
-╠═╝╠═╣╠╦╝║╣ ║║║ ║ ╚═╗ 
-╩  ╩ ╩╩╚═╚═╝╝╚╝ ╩ ╚═╝ ");
-            Console.WriteLine(new string('-', 22));
+            Console.WriteLine(new string('-', 60));
+            Console.WriteLine(@"╔═╗╔═╗╦═╗╔═╗╔╗╔╔╦╗╔═╗                                       
+╠═╝╠═╣╠╦╝║╣ ║║║ ║ ╚═╗                                       
+╩  ╩ ╩╩╚═╚═╝╝╚╝ ╩ ╚═╝                                       ");
+            Console.WriteLine(new string('-', 60));
             var items = business.GetAll();
             if(items.Count == 0)
                 Console.WriteLine("No parents found      ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}   ");
-            Console.WriteLine(new string('-', 22));
+                    Console.WriteLine(item);
+            Console.WriteLine(new string('-', 60));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class inital : Migration
+    public partial class init2222 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -93,7 +93,7 @@ namespace Data.Migrations
                     Age = table.Column<int>(type: "int", nullable: true),
                     ClassGroupId = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EnrollmentDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EnrollmentDate = table.Column<int>(type: "int", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

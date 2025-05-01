@@ -46,14 +46,14 @@ namespace Data.Models
             //    $"Student: {(Student != null ? Student.FirstName : "none")}\nTeacher: {(Teacher != null ? Teacher.FirstName : "none")}" +
             //    $"\nSubject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
             return
-                $"{"Grade ID:",-25}{Id,-30}\n" +
-                $"{"Value:",-25}{Value,-30}\n" +
-                $"{"Date:",-25}{Date,-30}\n" +
-                $"{"Comment:",-25}{Comment,-30}\n" +
-                $"{"Student:",-25}{Student.FirstName,-30}\n" +
-                $"{"Subject:",-25}{Subject.Name,-30}\n" +
-                $"{"Teacher ID:",-25}{TeacherId,-30}\n" +
-                $"{new string(' ', 55)}";
+                $"{"Grade ID:",-25}{Id,-24}\n" +
+                $"{"Value:",-25}{Value,-24}\n" +
+                $"{"Date:",-25}{Date,-24}\n" +
+                $"{"Comment:",-25}{Comment,-24}\n" +
+                $"{"Student:",-25}{Student.FirstName,-24}\n" +
+                $"{"Subject:",-25}{Subject.Name,-24}\n" +
+                $"{"Teacher ID:",-25}{TeacherId,-24}\n" +
+                $"{new string(' ', 49)}";
         }
     }
 }

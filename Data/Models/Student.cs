@@ -31,7 +31,7 @@ namespace Data.Models
         [Required]
         public string Email { get; set; }
 
-        public DateOnly EnrollmentDate { get; set; }
+        public int? EnrollmentDate { get; set; }
 
         // Връзка с родител
         [Required]
@@ -49,14 +49,14 @@ namespace Data.Models
             //    $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
             //    $"ParentID: {(ParentId != null ? ParentId : "None"),-20}";
             return
-                $"{"Student ID:",-25}{Id,-30}\n" +
-                $"{"First name:",-25}{FirstName,-30}\n" +
-                $"{"Last name:",-25}{LastName,-30}\n" +
-                $"{"Age:",-25}{Age,-30}\n" +
-                $"{"Email:",-25}{Email,-30}\n" +
-                $"{"Enrollment date:",-25}{(EnrollmentDate != null ? EnrollmentDate : "None"),-30}\n" +
-                $"{"Parent ID:",-25}{(ParentId != null ? ParentId : "None"),-30}\n" +
-                $"{new string(' ', 55)}";
+                $"{"Student ID:",-25}{Id,-44}\n" +
+                $"{"First name:",-25}{FirstName,-44}\n" +
+                $"{"Last name:",-25}{LastName,-44}\n" +
+                $"{"Age:",-25}{Age,-44}\n" +
+                $"{"Email:",-25}{Email,-44}\n" +
+                $"{"Enrollment date:",-25}{(EnrollmentDate != null ? EnrollmentDate : "None"),-44}\n" +
+                $"{"Parent ID:",-25}{(ParentId != null ? ParentId : "None"),-44}\n" +
+                $"{new string(' ', 69)}";
         }
     }
 }

@@ -30,10 +30,10 @@ namespace Data.Models
             //return $"Class ID: {Id, -8}\nClass name: {Name, -8}\nClass year: {Year, -8}\n" +
             //    $"TeacherID: {(Teacher != null ? Teacher.FirstName : "None"), -8}";
             return
-                $"{"Class ID:",-25}{Id,-30}\n" +
-                $"{"Class name:",-25}{Name,-30}\n" +
-                $"{"Class teacher:",-25}{Teacher.FirstName + " " + Teacher.LastName,-30}\n" +
-                $"{new string(' ', 55)}";
+                $"{"Class ID:",-25}{Id,-42}\n" +
+                $"{"Class name:",-25}{Name,-42}\n" +
+                $"{"Class teacher:",-25}{Teacher.FirstName + " " + Teacher.LastName,-42}\n" +
+                $"{new string(' ', 67)}";
         }
     }
 }

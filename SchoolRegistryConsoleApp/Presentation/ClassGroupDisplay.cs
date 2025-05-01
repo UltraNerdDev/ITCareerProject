@@ -115,11 +115,11 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 25));
-            Console.WriteLine(@"╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗    
-║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗    
-╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝    ");
-            Console.WriteLine(new string('-', 25));
+            Console.WriteLine(new string('-', 67));
+            Console.WriteLine(@"╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗                                              
+║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗                                              
+╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝                                              ");
+            Console.WriteLine(new string('-', 67));
             var items = classBusiness.GetAll();
             if(items.Count == 0)           
                 Console.WriteLine("No class groups found    ");
@@ -127,7 +127,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 foreach (var item in items)
                     //Console.WriteLine($"{item.Id,-5} {item.Name,5} {(item.Teacher != null ? item.Teacher.FirstName : "No Teacher"),12} ");
                     Console.WriteLine(item);
-            Console.WriteLine(new string('-', 25));
+            Console.WriteLine(new string('-', 67));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
