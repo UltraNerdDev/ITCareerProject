@@ -11,13 +11,23 @@ namespace Business
 {
     public class TeacherBusiness
     {
-        private SchoolRegistryContext context;
+        private SchoolRegistryContext _context;
+
+        public TeacherBusiness(SchoolRegistryContext context)
+        {
+            _context = context;
+        }
+
+        public TeacherBusiness()
+        {
+
+        }
 
         public List<Teacher> GetAll()
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                return context.Teachers                    
+                return _context.Teachers                    
                     .Include(t => t.Subject)
                     .ToList();
               //  return context.Teachers.ToList();
@@ -26,46 +36,46 @@ namespace Business
 
         public Teacher Get(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var enrollment = context.Teachers
+                var enrollment = _context.Teachers
                                         .Include(e => e.Subject)
                                         .FirstOrDefault(e => e.Id == id);
-                return context.Teachers.Find(id);
+                return _context.Teachers.Find(id);
             }
         }
 
         public void Add(Teacher teacher)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                context.Teachers.Add(teacher);
-                context.SaveChanges();
+                _context.Teachers.Add(teacher);
+                _context.SaveChanges();
             }
         }
 
         public void Update(Teacher teacher)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Teachers.Find(teacher.Id);
+                var item = _context.Teachers.Find(teacher.Id);
                 if (item != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues(teacher);
-                    context.SaveChanges();
+                    _context.Entry(item).CurrentValues.SetValues(teacher);
+                    _context.SaveChanges();
                 }
             }
         }
 
         public void Delete(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Teachers.Find(id);
+                var item = _context.Teachers.Find(id);
                 if (item != null)
                 {
-                    context.Remove(item);
-                    context.SaveChanges();
+                    _context.Remove(item);
+                    _context.SaveChanges();
                 }
             }
         }

@@ -146,44 +146,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //ClassGroup classGroup = classBusiness.Get(id);
-            //if (classGroup != null)
-            //{
-            //    Console.WriteLine("Enter name: ");
-            //    classGroup.Name = Console.ReadLine();
-            //    Console.WriteLine("Avaliable teachers");
-            //    var items = teacherBusiness.GetAll();
-            //    foreach (var item in items)
-            //        Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
-            //    Console.WriteLine("Enter teacher ID: ");
-            //    classGroup.TeacherId = int.Parse(Console.ReadLine());
-            //    classBusiness.Update(classGroup);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Class with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Class with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -196,12 +158,14 @@ namespace SchoolRegistryConsoleApp.Presentation
 
                 Console.WriteLine("Avalible teachers:");
                 var items = teacherBusiness.GetAll();
+                Console.WriteLine(new string('-', 25));
                 if (items.Count == 0)
                     Console.WriteLine("None");
                 else
                     foreach (var item in items)
                         Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
-
+                Console.WriteLine(new string('-', 25));
+                // Get valid teacher ID
                 classGroup.TeacherId = InputHelper.GetValidForeignKey(
                     "Enter teacher ID:",
                     context => context.Classes
@@ -213,7 +177,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Student with ID: {id} updated successfully.");
+                Console.WriteLine($"Class with ID: {id} updated successfully.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -223,7 +187,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Student with ID: {id} not found.");
+                Console.WriteLine($"Class with ID: {id} not found.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -254,7 +218,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine("There is no such class group to fetch, please choose valid ID");
+                Console.WriteLine("There is no such class to fetch, please choose valid ID");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -289,10 +253,24 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (classgroup != null)
             {
                 classBusiness.Delete(id);
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Class with ID: {id} deleted successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Class with ID: {id} not found.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
     }
 }

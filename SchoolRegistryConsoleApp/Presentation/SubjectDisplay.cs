@@ -103,37 +103,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //Subject subject = business.Get(id);
-            //if (subject != null)
-            //{
-            //    Console.WriteLine("Enter name: ");
-            //    subject.Name = Console.ReadLine();
-            //    business.Update(subject);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Subject with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Subject with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -200,23 +169,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //Console.WriteLine("All current subjects:");
-            //ListAll();
-            //Console.Write("Enter ID to delete: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //business.Delete(id);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Subject with id:{id} deleted");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
-
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to delete:");
@@ -225,10 +177,24 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (subject != null)
             {
                 business.Delete(id);
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Subject with ID: {id} deleted successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Subject with ID: {id} not found.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
     }
 }

@@ -16,6 +16,16 @@ namespace Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<ClassGroup> Classes { get; set; }
         public DbSet<Parent> Parents { get; set; }
+
+        public SchoolRegistryContext(DbContextOptions<SchoolRegistryContext> options)
+    : base(options)
+        {
+        }
+
+        public SchoolRegistryContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

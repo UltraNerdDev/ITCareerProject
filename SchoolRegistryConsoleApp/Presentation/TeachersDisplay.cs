@@ -85,7 +85,6 @@ namespace SchoolRegistryConsoleApp.Presentation
             else
                 foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.Name,15}");
-
             // Get optional SubjectId
             Console.WriteLine("Enter subject ID (or press Enter to skip):");
             string subjectIdInput = Console.ReadLine()?.Trim();
@@ -146,46 +145,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         public override void Update()
         {
             Console.Clear();
-            ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //Teacher teacher = teacherBusiness.Get(id);
-            //if (teacher != null)
-            //{
-            //    Console.WriteLine("Enter First Name: ");
-            //    teacher.FirstName = Console.ReadLine();
-            //    Console.WriteLine("Enter Last Name: ");
-            //    teacher.LastName = Console.ReadLine();
-            //    Console.WriteLine("Ënter Phone number: ");
-            //    teacher.Phone = Console.ReadLine();
-            //    Console.WriteLine("Enter email: ");
-            //    teacher.Email = Console.ReadLine();
-            //    Console.WriteLine("Enter subjectID: ");
-            //    teacher.SubjectId = int.Parse(Console.ReadLine());
-            //    teacherBusiness.Update(teacher);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Parent with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Parent with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
+            ShowMenu();         
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -199,10 +159,31 @@ namespace SchoolRegistryConsoleApp.Presentation
                 string phone = InputHelper.GetNonEmptyString("Enter teacher's phone (optional):");
                 teacher.Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
 
-                teacher.SubjectId = InputHelper.GetValidForeignKey(
-                    "Enter subject ID:",
-                    context => context.Subjects
-                );
+                var items = subjectBusiness.GetAll();
+                Console.WriteLine("Avalible subjects:");
+                Console.WriteLine(new string('-', 25));
+                if (items.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in items)
+                        Console.WriteLine($"{item.Id,-5} {item.Name,15}");
+                Console.WriteLine(new string('-', 25));
+                // Get optional SubjectId
+                Console.WriteLine("Enter subject ID (or press Enter to skip):");
+                string subjectIdInput = Console.ReadLine()?.Trim();
+                int? subjectId = null;
+                if (!string.IsNullOrWhiteSpace(subjectIdInput) && int.TryParse(subjectIdInput, out int parsedSubjectId))
+                {
+                    // Validate the entered SubjectId
+                    if (items.Any(s => s.Id == parsedSubjectId))
+                        subjectId = parsedSubjectId;
+                    else
+                    {
+                        Console.WriteLine("Invalid subject ID. Skipping subject assignment.");
+                        subjectId = null;
+                    }
+                }
+                teacher.SubjectId = subjectId;
 
                 teacherBusiness.Update(teacher);
 
@@ -259,23 +240,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //Console.WriteLine("All current teachers:");
-            //ListAll();
-            //Console.Write("Enter ID to delete: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //teacherBusiness.Delete(id);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Parent with id:{id} deleted");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
-
+            
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to delete:");
@@ -284,10 +249,24 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (teacher != null)
             {
                 teacherBusiness.Delete(id);
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Teacher with ID: {id} deleted successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Teacher with ID: {id} not found.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
     }
 }

@@ -42,23 +42,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //Parent parent = new Parent();
-            //Console.WriteLine("Enter First Name: ");
-            //parent.FirstName = Console.ReadLine();
-            //Console.WriteLine("Enter Last Name: ");
-            //parent.LastName = Console.ReadLine();
-            //Console.WriteLine("Ënter Phone number: ");
-            //parent.PhoneNumber = Console.ReadLine();
-            //Console.WriteLine("Enter email: ");
-            //parent.Email = Console.ReadLine();
-            //business.Add(parent);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Parent \"{parent.FirstName}-{parent.LastName}-{parent.PhoneNumber}-{parent.Email}\" added.");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
 
             string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
             string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
@@ -84,6 +67,59 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine($"Parent added successfully.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
+
+            //Console.Clear();
+            //ShowMenu();
+            //while (true)
+            //{
+            //    Console.WriteLine("Press 'Esc' to go back to the previous menu at any time.");
+
+            //    // Check for "Esc" key press
+            //    if (Console.KeyAvailable)
+            //    {
+            //        var key = Console.ReadKey(intercept: true);
+            //        if (key.Key == ConsoleKey.Escape)
+            //        {
+            //            Console.Clear();
+            //            ShowMenu();
+            //            return; // Exit the Add method
+            //        }
+            //    }
+
+            //    try
+            //    {
+            //        string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
+            //        string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
+            //        Console.WriteLine("Enter parent's phone (optional): ");
+            //        string phone = Console.ReadLine()?.Trim();
+            //        if (string.IsNullOrWhiteSpace(phone)) phone = null;
+            //        string email = InputHelper.GetNonEmptyString("Enter parent's email:");
+
+            //        var parent = new Parent
+            //        {
+            //            FirstName = firstName,
+            //            LastName = lastName,
+            //            PhoneNumber = phone,
+            //            Email = email
+            //        };
+
+            //        business.Add(parent);
+
+            //        Console.Clear();
+            //        ShowMenu();
+            //        Console.ForegroundColor = ConsoleColor.DarkRed;
+            //        Console.BackgroundColor = ConsoleColor.DarkGray;
+            //        Console.WriteLine($"Parent added successfully.");
+            //        Console.ForegroundColor = ConsoleColor.White;
+            //        Console.BackgroundColor = ConsoleColor.Black;
+
+            //        return; // Exit after successful addition
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine($"An error occurred: {ex.Message}");
+            //    }
+            //}
         }
         public override void ListAll()
         {
@@ -98,7 +134,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine(new string('-', 60));
             var items = business.GetAll();
             if(items.Count == 0)
-                Console.WriteLine("No parents found      ");
+                Console.WriteLine("No parents found                                            ");
             else
                 foreach (var item in items)
                     Console.WriteLine(item);
@@ -110,45 +146,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //Parent parent = business.Get(id);
-            //if (parent != null)
-            //{
-            //    Console.WriteLine("Enter First Name: ");
-            //    parent.FirstName = Console.ReadLine();               
-            //    Console.WriteLine("Enter Last Name: ");
-            //    parent.LastName = Console.ReadLine();
-            //    Console.WriteLine("Ënter Phone number: ");
-            //    parent.PhoneNumber = Console.ReadLine();
-            //    Console.WriteLine("Enter email: ");
-            //    parent.Email = Console.ReadLine();
-            //    business.Update(parent);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Parent with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Parent with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            ListAll();
-
+            
             int id = InputHelper.GetValidInt("Enter ID to update:");
             Parent parent = business.Get(id);
 
@@ -215,32 +213,31 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //Console.WriteLine("All current parents:");
-            //ListAll();
-            //Console.Write("Enter ID to delete: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;  
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //business.Delete(id);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Parent with id:{id} deleted");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
+            
             int id = InputHelper.GetValidInt("Enter ID to delete:");
             Parent parent = business.Get(id);
 
             if (parent != null)
             {
                 business.Delete(id);
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Parent with ID: {id} deleted successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Parent with ID: {id} not found.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
     }
 }

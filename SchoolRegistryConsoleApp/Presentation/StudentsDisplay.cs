@@ -189,64 +189,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //Student student = studentBusiness.Get(id);
-            //if (student != null)
-            //{
-            //    Console.WriteLine("Enter First Name: ");
-            //    student.FirstName = Console.ReadLine();
-            //    Console.WriteLine("Enter Last Name: ");
-            //    student.LastName = Console.ReadLine();
-            //    Console.WriteLine("Ënter Age: ");
-            //    student.Age = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Ënter Class Group Id number: ");
-            //    var itim = groupBusiness.GetAll();
-            //    if (itim.Count == 0)
-            //        Console.WriteLine("None");
-            //    else
-            //        foreach (var item in itim)
-            //            Console.WriteLine($"{item.Id,-5} {item.Name,15}");
-            //    Console.WriteLine("Avaliable class groups");
-            //    student.ClassGroupId = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter email: ");
-            //    student.Email = Console.ReadLine();
-            //    Console.WriteLine("Enter date: ");
-            //    student.EnrollmentDate = DateOnly.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter parent Id: ");
-            //    var items = parentBusiness.GetAll();
-            //    if (items.Count == 0)
-            //        Console.WriteLine("None");
-            //    else
-            //        foreach (var item in items)
-            //            Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
-            //    Console.WriteLine("Avaliable parents");
-            //    student.ParentId = int.Parse(Console.ReadLine());
-            //    studentBusiness.Update(student);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Student with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Student with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -259,11 +201,31 @@ namespace SchoolRegistryConsoleApp.Presentation
                 student.Email = InputHelper.GetNonEmptyString("Enter student's email:");
                 student.Age = InputHelper.GetValidInt("Enter student's age:");
 
+                var omom = groupBusiness.GetAll();
+                Console.WriteLine("Avalible classes:");
+                Console.WriteLine(new string('-', 21));
+                if (omom.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in omom)
+                        Console.WriteLine($"{item.Id,-5} {item.Name,7}");
+                Console.WriteLine(new string('-', 21));
+                // Get valid class group ID
                 student.ClassGroupId = InputHelper.GetValidForeignKey(
                     "Enter class group ID:",
                     context => context.Classes
                 );
 
+                var itim = parentBusiness.GetAll();
+                Console.WriteLine("Avalible parents:");
+                Console.WriteLine(new string('-', 21));
+                if (itim.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in itim)
+                        Console.WriteLine($"{item.Id,-3} {item.FirstName,6} {item.LastName,6}");
+                Console.WriteLine(new string('-', 21));
+                // Get valid parent ID
                 student.ParentId = InputHelper.GetValidForeignKey(
                     "Enter parent ID:",
                     context => context.Parents
@@ -350,10 +312,24 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (student != null)
             {
                 studentBusiness.Delete(id);
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Student with ID: {id} deleted successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Student with ID: {id} not found.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
     }
 }
