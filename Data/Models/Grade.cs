@@ -25,7 +25,7 @@ namespace Data.Models
         // Връзка към ученик
         [Required]
         public int StudentId { get; set; }
-        [ForeignKey(nameof(StudentId))]
+        [ForeignKey(nameof(StudentId))]  
         public Student Student { get; set; }
 
         // Връзка към предмет
@@ -44,7 +44,7 @@ namespace Data.Models
         {
             return $"GradeID: {Id,-8}\nGrade value: {Value,-8:f2}\nDate: {Date,-8}\nComment name: {Comment}\n" +
                 $"Student: {(Student != null ? Student.FirstName : "none")}\nTeacher: {(Teacher != null ? Teacher.FirstName : "none")}" +
-                $"Subject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
+                $"\nSubject: {(Subject != null ? Subject.Name : "none")}\nTeacherID: {(Teacher != null ? Teacher.Id : "none")}";
         }
     }
 }

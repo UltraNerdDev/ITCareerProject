@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
@@ -16,7 +17,10 @@ namespace Business
         {
             using (context = new SchoolRegistryContext())
             {
-                return context.Teachers.ToList();
+                return context.Teachers                    
+                    .Include(t => t.Subject)
+                    .ToList();
+              //  return context.Teachers.ToList();
             }
         }
 
@@ -24,6 +28,9 @@ namespace Business
         {
             using (context = new SchoolRegistryContext())
             {
+                var enrollment = context.Teachers
+                                        .Include(e => e.Subject)
+                                        .FirstOrDefault(e => e.Id == id);
                 return context.Teachers.Find(id);
             }
         }

@@ -88,7 +88,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("No teachers found       ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15} {item.LastName,15} {item.Phone,12} {item.Email} {item.Subject}");
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15} {item.LastName,15} {item.Phone,12} {item.Email} {item.Subject.Name}");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 24));

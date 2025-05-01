@@ -104,7 +104,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("No grades found     ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.Value,7} {item.Date,1} {item.Comment,1} {item.Student,1} {item.Subject,1} {item.Teacher,1}");
+                    Console.WriteLine($"{item.Id,-5} {item.Value,3}//{item.Date,1}//{item.Comment,1}//{item.Student.FirstName,1}//{item.Subject.Name,1}//{item.Teacher.FirstName,1}");
             Console.WriteLine(new string('-', 20));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -184,7 +184,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("All current Grades:");
             ListAll();
             Console.WriteLine("Enter ID to fetch: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);            
             char pressedKey = keyInfo.KeyChar;
             if (char.IsDigit(pressedKey))
                 id = int.Parse(pressedKey.ToString());

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
@@ -15,8 +16,13 @@ namespace Business
         public List<Grade> GetAll()
         {
             using (context = new SchoolRegistryContext())
-            {
-                return context.Grades.ToList();
+            {                
+                //return context.Grades.ToList();
+                return context.Grades
+                     .Include(g => g.Student)
+                     .Include(g => g.Subject)
+                     .Include(g => g.Teacher)
+                     .ToList();
             }
         }
 
@@ -24,6 +30,12 @@ namespace Business
         {
             using (context = new SchoolRegistryContext())
             {
+                // Example: fetching a single Enrollment with related entities loaded
+                var enrollment = context.Grades
+                                        .Include(e => e.Student)
+                                        .Include(e => e.Subject)
+                                        .Include(e => e.Teacher)
+                                        .FirstOrDefault(e => e.Id == id);
                 return context.Grades.Find(id);
             }
         }
@@ -44,7 +56,7 @@ namespace Business
                 var item = context.Grades.Find(grade.Id);
                 if (item != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues( grade);
+                    context.Entry(item).CurrentValues.SetValues(grade);
                     context.SaveChanges();
                 }
             }
