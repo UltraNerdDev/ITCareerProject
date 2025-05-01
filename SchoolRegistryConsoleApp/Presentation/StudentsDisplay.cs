@@ -22,16 +22,21 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('=', 66));
-            Console.WriteLine("Students");
-            Console.WriteLine(new string('=', 66));
-            Console.WriteLine("1. List all students" + new string(' ', 46));
-            Console.WriteLine("2. Add new student" + new string(' ', 48));
-            Console.WriteLine("3. Update student" + new string(' ', 49));
-            Console.WriteLine("4. Fetch student by ID" + new string(' ', 44));
-            Console.WriteLine("5. Delete student by ID" + new string(' ', 43));
-            Console.WriteLine("6. Exit" + new string(' ', 59));
-            Console.WriteLine("ENTER A COMMAND ID: " + new string(' ', 46));
+            Console.WriteLine(new string('=', 69));
+            Console.WriteLine(@"███████╗████████╗██╗   ██╗██████╗ ███████╗███╗   ██╗████████╗███████╗
+██╔════╝╚══██╔══╝██║   ██║██╔══██╗██╔════╝████╗  ██║╚══██╔══╝██╔════╝
+███████╗   ██║   ██║   ██║██║  ██║█████╗  ██╔██╗ ██║   ██║   ███████╗
+╚════██║   ██║   ██║   ██║██║  ██║██╔══╝  ██║╚██╗██║   ██║   ╚════██║
+███████║   ██║   ╚██████╔╝██████╔╝███████╗██║ ╚████║   ██║   ███████║
+╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝");
+            Console.WriteLine(new string('=', 69));
+            Console.WriteLine("1. List all students" + new string(' ', 49));
+            Console.WriteLine("2. Add new student" + new string(' ', 51));
+            Console.WriteLine("3. Update student" + new string(' ', 52));
+            Console.WriteLine("4. Fetch student by ID" + new string(' ', 47));
+            Console.WriteLine("5. Delete student by ID" + new string(' ', 46));
+            Console.WriteLine("6. Exit" + new string(' ', 62));
+            Console.WriteLine("ENTER A COMMAND ID: " + new string(' ', 49));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
@@ -46,25 +51,25 @@ namespace SchoolRegistryConsoleApp.Presentation
             student.LastName = Console.ReadLine();
             Console.WriteLine("Ënter Age number: ");
             student.Age = int.Parse(Console.ReadLine());
-            Console.WriteLine("Ënter Class Group Id number: ");
-            var itim = groupBusiness.GetAll();
-            if (itim.Count == 0)
+            Console.WriteLine("Ënter Class Group ID: ");
+            var items = groupBusiness.GetAll();
+            if (items.Count == 0)
                 Console.WriteLine("None");
             else
-                foreach (var item in itim)
+                foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.Name,7} {item.Year}");
             Console.WriteLine("Avaliable class groups");
             student.ClassGroupId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter email: ");
             student.Email = Console.ReadLine();
             Console.WriteLine("Enter date: ");
-            student.EnrollmentDate =DateOnly.Parse( Console.ReadLine());
+            student.EnrollmentDate = DateOnly.Parse(Console.ReadLine());
             Console.WriteLine("Enter parent Id: ");
-            var items = parentBusiness.GetAll();
-            if (items.Count == 0)
+            var items2 = parentBusiness.GetAll();
+            if (items2.Count == 0)
                 Console.WriteLine("None");
             else
-                foreach (var item in items)
+                foreach (var item in items2)
                     Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
             Console.WriteLine("Avaliable parents");
             student.ParentId = int.Parse(Console.ReadLine());
@@ -84,14 +89,20 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 24));
-            Console.WriteLine("Students");
+            Console.WriteLine(@"╔═╗╔╦╗╦ ╦╔╦╗╔═╗╔╗╔╔╦╗╔═╗
+╚═╗ ║ ║ ║ ║║║╣ ║║║ ║ ╚═╗
+╚═╝ ╩ ╚═╝═╩╝╚═╝╝╚╝ ╩ ╚═╝");
             Console.WriteLine(new string('-', 24));
             var items = studentBusiness.GetAll();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             if (items.Count == 0)
                 Console.WriteLine("No students found       ");
             else
                 foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.FirstName,4} {item.LastName,4} {item.Age}");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(new string('-', 24));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;

@@ -41,7 +41,6 @@ namespace SchoolRegistryConsoleApp
                             break;
                         case 3:
                             Console.Clear();
-                            //display = new ParentsDisplay();
                             display = new ParentsDisplay();
                             break;
                         case 4:

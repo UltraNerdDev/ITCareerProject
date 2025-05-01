@@ -23,16 +23,21 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('=', 66));
-            Console.WriteLine("Grades");
-            Console.WriteLine(new string('=', 66));
-            Console.WriteLine("1. List all grades" + new string(' ', 46));
-            Console.WriteLine("2. Add new grade" + new string(' ', 48));
-            Console.WriteLine("3. Update grade" + new string(' ', 49));
-            Console.WriteLine("4. Fetch grade by ID" + new string(' ', 44));
-            Console.WriteLine("5. Delete grade by ID" + new string(' ', 43));
-            Console.WriteLine("6. Exit" + new string(' ', 59));
-            Console.WriteLine("ENTER A COMMAND ID: " + new string(' ', 46));
+            Console.WriteLine(new string('=', 49));
+            Console.WriteLine(@" ██████╗ ██████╗  █████╗ ██████╗ ███████╗███████╗
+██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝
+██║  ███╗██████╔╝███████║██║  ██║█████╗  ███████╗
+██║   ██║██╔══██╗██╔══██║██║  ██║██╔══╝  ╚════██║
+╚██████╔╝██║  ██║██║  ██║██████╔╝███████╗███████║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝");
+            Console.WriteLine(new string('=', 49));
+            Console.WriteLine("1. List all grades" + new string(' ', 31));
+            Console.WriteLine("2. Add new grade" + new string(' ', 33));
+            Console.WriteLine("3. Update grade" + new string(' ', 34));
+            Console.WriteLine("4. Fetch grade by ID" + new string(' ', 29));
+            Console.WriteLine("5. Delete grade by ID" + new string(' ', 28));
+            Console.WriteLine("6. Exit" + new string(' ', 42));
+            Console.WriteLine("ENTER A COMMAND ID: " + new string(' ', 29));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
@@ -89,16 +94,18 @@ namespace SchoolRegistryConsoleApp.Presentation
             ShowMenu();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(new string('-', 24));
-            Console.WriteLine("GRADE");
-            Console.WriteLine(new string('-', 24));
+            Console.WriteLine(new string('-', 20));
+            Console.WriteLine(@"╔═╗╦═╗╔═╗╔╦╗╔═╗╔═╗  
+║ ╦╠╦╝╠═╣ ║║║╣ ╚═╗  
+╚═╝╩╚═╩ ╩═╩╝╚═╝╚═╝  ");
+            Console.WriteLine(new string('-', 20));
             var items = gradeBusiness.GetAll();
             if (items.Count == 0)
-                Console.WriteLine("No grades found       ");
+                Console.WriteLine("No grades found     ");
             else
                 foreach (var item in items)
                     Console.WriteLine($"{item.Id,-5} {item.Value,7} {item.Date,1} {item.Comment,1} {item.Student,1} {item.Subject,1} {item.Teacher,1}");
-            Console.WriteLine(new string('-', 24));
+            Console.WriteLine(new string('-', 20));
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
@@ -220,7 +227,5 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-
-
     }
 }
