@@ -13,6 +13,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         private int closeOperationId = 6;
         private ClassGroupBusiness classBusiness = new ClassGroupBusiness();
         private TeacherBusiness teacherBusiness = new TeacherBusiness();
+        
 
         public ClassGroupDisplay()
         {
@@ -52,14 +53,26 @@ namespace SchoolRegistryConsoleApp.Presentation
             group.Name = Console.ReadLine();
             Console.WriteLine("Enter year: ");
             group.Year = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter teacher ID:");
-            var items = teacherBusiness.GetAll();
             Console.WriteLine("Avaliable teachers:");
-            if(items.Count == 0)
-                Console.WriteLine("None");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine(new string('-', 66));
+            Console.WriteLine(@"╔╦╗╔═╗╔═╗╔═╗╦ ╦╔═╗╦═╗╔═╗
+ ║ ║╣ ╠═╣║  ╠═╣║╣ ╠╦╝╚═╗
+ ╩ ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩╚═╚═╝");
+            Console.WriteLine(new string('-', 66));
+            var items = teacherBusiness.GetAll();
+            if (items.Count == 0)
+                Console.WriteLine("No teachers found       ");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
+                    Console.WriteLine($"{item.Id,-3} {item.FirstName,5} {item.LastName,5} {item.Phone,12} {item.Email,14} {item.Subject.Name,14}    ");
+            Console.WriteLine(new string('-', 66));
+            Console.WriteLine("Enter teacher ID:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            char pressedKey = keyInfo.KeyChar;
+            if (char.IsDigit(pressedKey))
+                group.TeacherId = int.Parse(pressedKey.ToString());
             classBusiness.Add(group);
             Console.Clear();
             ShowMenu();
