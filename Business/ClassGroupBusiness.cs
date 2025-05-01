@@ -14,13 +14,23 @@ namespace Business
 {
     public class ClassGroupBusiness
     {
-        private SchoolRegistryContext context;
+        private SchoolRegistryContext _context;
+      
+        public ClassGroupBusiness(SchoolRegistryContext context)
+        {
+            _context = context;
+        }
+
+        public ClassGroupBusiness()
+        {
+
+        }
 
         public List<ClassGroup> GetAll()
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                return context.Classes
+                return _context.Classes
                      .Include(g => g.Teacher)
                      .ToList();
                 // return context.Classes.ToList();
@@ -29,43 +39,43 @@ namespace Business
 
         public ClassGroup Get(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                return context.Classes.Find(id);
+                return _context.Classes.Find(id);
             }
         }
 
         public void Add(ClassGroup classGroup)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                context.Classes.Add(classGroup);
-                context.SaveChanges();
+                _context.Classes.Add(classGroup);
+                _context.SaveChanges();
             }
         }
 
         public void Update(ClassGroup classGroup)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Classes.Find(classGroup.Id);
+                var item = _context.Classes.Find(classGroup.Id);
                 if (item != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues(classGroup);
-                    context.SaveChanges();
+                    _context.Entry(item).CurrentValues.SetValues(classGroup);
+                    _context.SaveChanges();
                 }
             }
         }
 
         public void Delete(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Classes.Find(id);
+                var item = _context.Classes.Find(id);
                 if (item != null)
                 {
-                    context.Remove(item);
-                    context.SaveChanges();
+                    _context.Remove(item);
+                    _context.SaveChanges();
                 }
             }
         }

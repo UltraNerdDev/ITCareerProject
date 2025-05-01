@@ -11,14 +11,24 @@ namespace Business
 {
     public class GradeBusiness
     {
-        private SchoolRegistryContext context;
+        private SchoolRegistryContext _context;
+
+        public GradeBusiness(SchoolRegistryContext context)
+        {
+            _context = context;
+        }
+
+        public GradeBusiness()
+        {
+            
+        }
 
         public List<Grade> GetAll()
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {                
                 //return context.Grades.ToList();
-                return context.Grades
+                return _context.Grades
                      .Include(g => g.Student)
                      .Include(g => g.Subject)
                      .Include(g => g.Teacher)
@@ -28,49 +38,49 @@ namespace Business
 
         public Grade Get(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
                 // Example: fetching a single Enrollment with related entities loaded
-                var enrollment = context.Grades
+                var enrollment = _context.Grades
                                         .Include(e => e.Student)
                                         .Include(e => e.Subject)
                                         .Include(e => e.Teacher)
                                         .FirstOrDefault(e => e.Id == id);
-                return context.Grades.Find(id);
+                return _context.Grades.Find(id);
             }
         }
 
         public void Add(Grade grade)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                context.Grades.Add(grade);
-                context.SaveChanges();
+                _context.Grades.Add(grade);
+                _context.SaveChanges();
             }
         }
 
         public void Update(Grade grade)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Grades.Find(grade.Id);
+                var item = _context.Grades.Find(grade.Id);
                 if (item != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues(grade);
-                    context.SaveChanges();
+                    _context.Entry(item).CurrentValues.SetValues(grade);
+                    _context.SaveChanges();
                 }
             }
         }
 
         public void Delete(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Grades.Find(id);
+                var item = _context.Grades.Find(id);
                 if (item != null)
                 {
-                    context.Remove(item);
-                    context.SaveChanges();
+                    _context.Remove(item);
+                    _context.SaveChanges();
                 }
             }
         }

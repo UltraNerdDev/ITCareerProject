@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace XUnitTestss
 {
-    public class UnitTest1
+    public class SubjectBusinessTests
     {
-        private SchoolRegistryContext GetInMemoryContext()
+        public SchoolRegistryContext GetInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<SchoolRegistryContext>()
                 .UseInMemoryDatabase(databaseName: "SchoolRegistryTestDB")

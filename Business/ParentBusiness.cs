@@ -10,55 +10,65 @@ namespace Business
 {
     public class ParentBusiness
     {
-        private SchoolRegistryContext context;
+        private SchoolRegistryContext _context;
+
+        public ParentBusiness(SchoolRegistryContext context)
+        {
+            _context = context;
+        }
+
+        public ParentBusiness()
+        {
+            
+        }
 
         public List<Parent> GetAll()
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                return context.Parents.ToList();
+                return _context.Parents.ToList();
             }
         }
 
         public Parent Get(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                return context.Parents.Find(id);
+                return _context.Parents.Find(id);
             }
         }
 
         public void Add(Parent parent)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                context.Parents.Add(parent);
-                context.SaveChanges();
+                _context.Parents.Add(parent);
+                _context.SaveChanges();
             }
         }
 
         public void Update(Parent parent)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Parents.Find(parent.Id);
+                var item = _context.Parents.Find(parent.Id);
                 if (item != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues(parent);
-                    context.SaveChanges();
+                    _context.Entry(item).CurrentValues.SetValues(parent);
+                    _context.SaveChanges();
                 }
             }
         }
 
         public void Delete(int id)
         {
-            using (context = new SchoolRegistryContext())
+            using (_context = new SchoolRegistryContext())
             {
-                var item = context.Parents.Find(id);
+                var item = _context.Parents.Find(id);
                 if (item != null)
                 {
-                    context.Remove(item);
-                    context.SaveChanges();
+                    _context.Remove(item);
+                    _context.SaveChanges();
                 }
             }
         }
