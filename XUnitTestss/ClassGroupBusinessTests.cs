@@ -12,10 +12,14 @@ namespace XUnitTestss
         private SchoolRegistryContext GetInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<SchoolRegistryContext>()
-                .UseInMemoryDatabase(databaseName: "ClassGroupBusinessTestDB")
+                .UseInMemoryDatabase(databaseName: "SomeUniqueTestDbName")
                 .Options;
 
-            return new SchoolRegistryContext(options);
+            //return new SchoolRegistryContext(options);
+            var context = new SchoolRegistryContext(options);
+            context.Database.EnsureDeleted(); // Clean up before each test
+            context.Database.EnsureCreated();
+            return context;
         }
 
         [Fact]
