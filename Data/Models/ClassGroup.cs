@@ -9,6 +9,7 @@ using System.Numerics;
 
 namespace Data.Models
 {
+    //ClassGroup object model
     public class ClassGroup
     {
         [Key]
@@ -25,10 +26,9 @@ namespace Data.Models
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; }
 
+        //Refactored ToString method for better readability
         public override string ToString()               
         {
-            //return $"Class ID: {Id, -8}\nClass name: {Name, -8}\nClass year: {Year, -8}\n" +
-            //    $"TeacherID: {(Teacher != null ? Teacher.FirstName : "None"), -8}";
             return
                 $"{"Class ID:",-25}{Id,-42}\n" +
                 $"{"Class name:",-25}{Name,-42}\n" +

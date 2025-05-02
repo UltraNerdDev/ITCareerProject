@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class for Grades, using the business layer to perform CRUD operations and enhancing the UI experience
     public class GradesDisplay : Display
     {
         private int closeOperationId = 6;
@@ -15,10 +16,13 @@ namespace SchoolRegistryConsoleApp.Presentation
         private SubjectBusiness subjectBusiness = new SubjectBusiness();
         private StudentBusiness studentBusiness = new StudentBusiness();
         private GradeBusiness gradeBusiness = new GradeBusiness();
+
         public GradesDisplay()
         {
             Input();
         }
+
+        //Shows the user menu of the given entity on the console
         public override void ShowMenu()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -41,12 +45,14 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Add method realising the logic of adding a new Grades object to the database with UI
         public override void Add()
         {
             Console.Clear();
             ShowMenu();
 
-            // Get grade value (2-6)
+            //Get valid grade value (2-6)
             double gradeValue;
             while (true)
             {
@@ -56,14 +62,15 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("Invalid grade value. Please enter a value between 2 and 6.");
             }
 
-            // Get date
+            //Get date
             DateOnly gradeDate = DateOnly.Parse(InputHelper.GetNonEmptyString("Enter grade date (dd.MM.yyyy):"));
 
-            // Get comment (optional)
+            //Get comment (optional)
             Console.WriteLine("Enter comment (optional):");
             string comment = Console.ReadLine()?.Trim();
             if (string.IsNullOrWhiteSpace(comment)) comment = "none";
 
+            //Displaying the available students, subjects and teachers
             var itim = studentBusiness.GetAll();
             Console.WriteLine("Avalible students:");
             Console.WriteLine(new string('-', 25));
@@ -130,6 +137,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //ListAll method realising the logic of listing all of the Grades objects in the database with UI
         public override void ListAll()
         {
             Console.Clear();
@@ -151,72 +160,12 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Update method realising the logic of updating existing Grades object in the database with UI
         public override void Update()
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //ListAll();
-            //Console.WriteLine("Enter ID to update: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //Grade grade = gradeBusiness.Get(id);
-            //if (grade != null)
-            //{
-            //    Console.WriteLine("Enter Grade (2-6): ");
-            //    grade.Value = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter Date: ");
-            //    grade.Date = DateOnly.Parse(Console.ReadLine());
-            //    Console.WriteLine("Ënter Comment: ");
-            //    grade.Comment = Console.ReadLine();
-            //    Console.WriteLine("Enter Student Id: ");
-            //    var itim = studentBusiness.GetAll();
-            //    if (itim.Count == 0)
-            //        Console.WriteLine("None");
-            //    else
-            //        foreach (var item in itim)
-            //            Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
-            //    Console.WriteLine("Avaliable students");
-            //    grade.StudentId = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter subjectID: ");
-            //    var items = subjectBusiness.GetAll();
-            //    if (items.Count == 0)
-            //        Console.WriteLine("None");
-            //    else
-            //        foreach (var item in items)
-            //            Console.WriteLine($"{item.Id,-5} {item.Name,15}");
-            //    Console.WriteLine("Avaliable subjects");
-            //    grade.SubjectId = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter teacherId: ");
-            //    var omom = teacherBusiness.GetAll();
-            //    if (omom.Count == 0)
-            //        Console.WriteLine("None");
-            //    else
-            //        foreach (var item in omom)
-            //            Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
-            //    Console.WriteLine("Avaliable teachers");
-            //    grade.TeacherId = int.Parse(Console.ReadLine());
-            //    gradeBusiness.Update(grade);
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Grade with Id: {id} updated.");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
-            //else
-            //{
-            //    Console.Clear();
-            //    ShowMenu();
-            //    Console.ForegroundColor = ConsoleColor.DarkRed;
-            //    Console.BackgroundColor = ConsoleColor.DarkGray;
-            //    Console.WriteLine($"Grade with Id: {id} not found");
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //}
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -225,6 +174,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (grade != null)
             {
                 double gradeValue;
+                //
+                //Get valid grade value (2-6)
                 while (true)
                 {
                     gradeValue = double.Parse(InputHelper.GetNonEmptyString("Enter grade value (2-6):"));
@@ -233,15 +184,16 @@ namespace SchoolRegistryConsoleApp.Presentation
                     Console.WriteLine("Invalid grade value. Please enter a value between 2 and 6.");
                 }
 
-                // Get date
+                //Get date
                 grade.Date = DateOnly.Parse(InputHelper.GetNonEmptyString("Enter grade date (dd.MM.yyyy):"));
 
-                // Get comment (optional)
+                //Get comment (optional)
                 Console.WriteLine("Enter comment (optional):");
                 string comment = Console.ReadLine()?.Trim();
                 if (string.IsNullOrWhiteSpace(comment)) comment = "None";
                 grade.Comment = comment;
 
+                //Displaying the available students, subjects and teachers
                 var itim = studentBusiness.GetAll();
                 Console.WriteLine("Avalible students:");
                 Console.WriteLine(new string('-', 25));
@@ -308,6 +260,8 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Fetch method realising the logic of fetching a single Grades object from the database with UI
         public override void Fetch()
         {
             Console.Clear();
@@ -338,26 +292,13 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Delete method realising the logic of deleting a single Grades object from the database with UI
         public override void Delete()
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //Console.WriteLine("All current grades:");
-            //ListAll();
-            //Console.Write("Enter ID to delete: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //gradeBusiness.Delete(id);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Grade with id:{id} deleted");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
+            
             int id = InputHelper.GetValidInt("Enter ID to delete:");
             Grade grade = gradeBusiness.Get(id);
 

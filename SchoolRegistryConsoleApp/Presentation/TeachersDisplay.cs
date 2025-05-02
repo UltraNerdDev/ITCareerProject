@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class for Teachers, using the business layer to perform CRUD operations and enhancing the UI experience
     internal class TeachersDisplay : Display
     {
         private int closeOperationId = 6;
         private TeacherBusiness teacherBusiness = new TeacherBusiness();
         private SubjectBusiness subjectBusiness = new SubjectBusiness();
+
         public TeachersDisplay()
         {
             Input();
         }
+
+        //Shows the user menu of the given entity on the console
         public override void ShowMenu()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -39,37 +43,12 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-        
+
+        //Add method realising the logic of adding a new Teacher object to the database with UI
         public override void Add()
         {
             Console.Clear();
             ShowMenu();
-            //Teacher teacher = new Teacher();
-            //Console.WriteLine("Enter First Name: ");
-            //teacher.FirstName = Console.ReadLine();
-            //Console.WriteLine("Enter Last Name: ");
-            //teacher.LastName = Console.ReadLine();
-            //Console.WriteLine("Ënter Phone number: ");
-            //teacher.Phone = Console.ReadLine();
-            //Console.WriteLine("Enter email: ");
-            //teacher.Email = Console.ReadLine();
-            //Console.WriteLine("Enter subjectID: ");
-            //var items = subjectBusiness.GetAll();
-            //if(items.Count == 0)
-            //    Console.WriteLine("None");
-            //else
-            //    foreach (var item in items)
-            //        Console.WriteLine($"{item.Id,-5} {item.Name,15}");
-            //Console.WriteLine("Avaliable subjects");
-            //teacher.SubjectId = int.Parse(Console.ReadLine());
-            //teacherBusiness.Add(teacher);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Teacher \"{teacher.FirstName}-{teacher.LastName}-{teacher.Phone}-{teacher.Email}\" added.");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
 
             string firstName = InputHelper.GetNonEmptyString("Enter teacher's first name:");
             string lastName = InputHelper.GetNonEmptyString("Enter teacher's last name:");
@@ -121,6 +100,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
+        //Lists all teachers in the database
         public override void ListAll()
         {
             Console.Clear();
@@ -142,6 +122,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Update method realising the logic of updating a Teacher object in the database with UI
         public override void Update()
         {
             Console.Clear();
@@ -159,6 +141,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 string phone = InputHelper.GetNonEmptyString("Enter teacher's phone (optional):");
                 teacher.Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
 
+                //Display available subjects
                 var items = subjectBusiness.GetAll();
                 Console.WriteLine("Avalible subjects:");
                 Console.WriteLine(new string('-', 25));
@@ -166,7 +149,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                     Console.WriteLine("None");
                 else
                     foreach (var item in items)
-                        Console.WriteLine($"{item.Id,-5} {item.Name,15}");
+                        Console.WriteLine($"{item.Id,-5} {item.Name,15}"); //not using the overriden ToString method for good-looking reasons
                 Console.WriteLine(new string('-', 25));
                 // Get optional SubjectId
                 Console.WriteLine("Enter subject ID (or press Enter to skip):");
@@ -206,6 +189,8 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Fetch method realising the logic of fetching a Teacher object from the database with UI
         public override void Fetch()
         {
             Console.Clear();
@@ -236,6 +221,8 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Delete method realising the logic of deleting a Teacher object from the database with UI
         public override void Delete()
         {
             Console.Clear();

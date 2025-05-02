@@ -15,7 +15,13 @@ namespace XUnitTestss
                 .UseInMemoryDatabase(databaseName: "ParentBusinessTestDB")
                 .Options;
 
-            return new SchoolRegistryContext(options);
+            //return new SchoolRegistryContext(options);
+
+            //ensuring the in-memory database is clear every time it is being deployed
+            var context = new SchoolRegistryContext(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            return context;
         }
 
         [Fact]
@@ -23,7 +29,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var parentBusiness = new ParentBusiness();
+            using var parentBusiness = new ParentBusiness(context);
             var parent = new Parent
             {
                 FirstName = "John",
@@ -36,12 +42,10 @@ namespace XUnitTestss
             parentBusiness.Add(parent);
 
             // Assert
-           // var result = context.Parents.FirstOrDefault(p => p.Email == "john.doe@example.com");
             var result = parentBusiness.Get(parent.Id);
             Assert.NotNull(result);
             Assert.Equal("John", result.FirstName);
             Assert.Equal("Doe", result.LastName);
-            parentBusiness.Delete(parent.Id);
         }
 
         [Fact]
@@ -49,11 +53,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var parentBusiness = new ParentBusiness();
-            // context.Parents.AddRange(
-            //    new Parent { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com" },
-            //    new Parent { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com" }
-            //);
+            using var parentBusiness = new ParentBusiness(context);
             var parent1 = new Parent
             {
                 FirstName = "Alice",
@@ -76,11 +76,9 @@ namespace XUnitTestss
             var parents = parentBusiness.GetAll();
 
             // Assert
-            //Assert.Equal(2, parents.Count);
+            Assert.Equal(2, parents.Count);
             Assert.Contains(parents, p => p.FirstName == "Alice" && p.LastName == "Smith");
             Assert.Contains(parents, p => p.FirstName == "Bob" && p.LastName == "Brown");
-            parentBusiness.Delete(parent1.Id);
-            parentBusiness.Delete(parent2.Id);
         }
 
         [Fact]
@@ -88,8 +86,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var parentBusiness = new ParentBusiness();
-            //var parent = new Parent { FirstName = "Charlie", LastName = "Johnson", Email = "charlie.johnson@example.com" };
+            using var parentBusiness = new ParentBusiness(context);
             var parent = new Parent
             {
                 FirstName = "Charlie",
@@ -107,7 +104,6 @@ namespace XUnitTestss
             Assert.NotNull(result);
             Assert.Equal("Charlie", result.FirstName);
             Assert.Equal("Johnson", result.LastName);
-            parentBusiness.Delete(parent.Id);
         }
 
         [Fact]
@@ -115,8 +111,13 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var parentBusiness = new ParentBusiness();
-            var parent = new Parent { FirstName = "David", LastName = "Williams", Email = "david.williams@example.com" };
+            using var parentBusiness = new ParentBusiness(context);
+            var parent = new Parent 
+            { 
+                FirstName = "David", 
+                LastName = "Williams", 
+                Email = "david.williams@example.com" 
+            };
             context.Parents.Add(parent);
             context.SaveChanges();
 
@@ -128,7 +129,6 @@ namespace XUnitTestss
             var result = context.Parents.FirstOrDefault(p => p.Id == parent.Id);
             Assert.NotNull(result);
             Assert.Equal("Dave", result.FirstName);
-            parentBusiness.Delete(parent.Id);
         }
 
         [Fact]
@@ -136,8 +136,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var parentBusiness = new ParentBusiness();
-            //var parent = new Parent { FirstName = "Eve", LastName = "Taylor", Email = "eve.taylor@example.com" };
+            using var parentBusiness = new ParentBusiness(context);
             var parent = new Parent
             {
                 FirstName = "Alice",
@@ -154,7 +153,6 @@ namespace XUnitTestss
             // Assert
             var result = context.Parents.FirstOrDefault(p => p.Id == parent.Id);
             Assert.Null(result);
-
         }
     }
 }

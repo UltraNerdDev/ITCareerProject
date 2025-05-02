@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
+    //Student object model
     public class Student
     {
         [Key]
@@ -22,7 +23,6 @@ namespace Data.Models
 
         public int? Age { get; set; }
 
-        //Връзка с клас
         [Required]
         public int ClassGroupId { get; set; }
         [ForeignKey(nameof(ClassGroupId))]
@@ -33,21 +33,17 @@ namespace Data.Models
 
         public int? EnrollmentDate { get; set; }
 
-        // Връзка с родител
         [Required]
         public int ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
-
         public Parent Parent { get; set; }
 
-        // Връзка към оценките
+        //Connection to Grades
         public ICollection<Grade> Grades { get; set; }
 
+        //Refactored ToString method for better readability
         public override string ToString()
         {
-            //return $"StudentID: {Id,-8}\nFirst name: {FirstName,-10}\nLast name: {LastName,-10}\n" +
-            //    $"Age: {Age,-8}\nEmail: {Email,-12}\nEnrollment date: {EnrollmentDate,-12}\n" +
-            //    $"ParentID: {(ParentId != null ? ParentId : "None"),-20}";
             return
                 $"{"Student ID:",-25}{Id,-44}\n" +
                 $"{"First name:",-25}{FirstName,-44}\n" +

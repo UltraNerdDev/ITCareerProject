@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
+    // DbContext class for the SchoolRegistry database, realising the DbSet properties for each table
     public class SchoolRegistryContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
@@ -17,11 +18,13 @@ namespace Data
         public DbSet<ClassGroup> Classes { get; set; }
         public DbSet<Parent> Parents { get; set; }
 
+        //Constructor with parameter when in-memory-database is needed
         public SchoolRegistryContext(DbContextOptions<SchoolRegistryContext> options)
     : base(options)
         {
         }
 
+        //Constructor without parameters when SQL database is needed
         public SchoolRegistryContext()
         {
         }
@@ -29,7 +32,7 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-AVBG2ST\SQLEXPRESS;Database=SchoolRegistryDB;Integrated Security = true;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer(@"Server=Gummie\SQLEXPRESS;Database=SchoolRegistryDB;Integrated Security = true;TrustServerCertificate=true");
             //DESKTOP-AVBG2ST\SQLEXPRESS - Ves database
             //Gummie\SQLEXPRESS - Alex database
         }

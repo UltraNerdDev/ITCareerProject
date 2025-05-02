@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class for Parents, using the business layer to perform CRUD operations and enhancing the UI experience
     public class ParentsDisplay : Display
     {
         private int closeOperationId = 6;
         private ParentBusiness business = new ParentBusiness();
+
         public ParentsDisplay()
         {
             Input();
         }
+
+        //Shows the user menu of the given entity on the console
         public override void ShowMenu()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -38,6 +42,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Add method realising the logic of adding a new Parent object to the database with UI
         public override void Add()
         {
             Console.Clear();
@@ -67,60 +73,9 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine($"Parent added successfully.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-
-            //Console.Clear();
-            //ShowMenu();
-            //while (true)
-            //{
-            //    Console.WriteLine("Press 'Esc' to go back to the previous menu at any time.");
-
-            //    // Check for "Esc" key press
-            //    if (Console.KeyAvailable)
-            //    {
-            //        var key = Console.ReadKey(intercept: true);
-            //        if (key.Key == ConsoleKey.Escape)
-            //        {
-            //            Console.Clear();
-            //            ShowMenu();
-            //            return; // Exit the Add method
-            //        }
-            //    }
-
-            //    try
-            //    {
-            //        string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
-            //        string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
-            //        Console.WriteLine("Enter parent's phone (optional): ");
-            //        string phone = Console.ReadLine()?.Trim();
-            //        if (string.IsNullOrWhiteSpace(phone)) phone = null;
-            //        string email = InputHelper.GetNonEmptyString("Enter parent's email:");
-
-            //        var parent = new Parent
-            //        {
-            //            FirstName = firstName,
-            //            LastName = lastName,
-            //            PhoneNumber = phone,
-            //            Email = email
-            //        };
-
-            //        business.Add(parent);
-
-            //        Console.Clear();
-            //        ShowMenu();
-            //        Console.ForegroundColor = ConsoleColor.DarkRed;
-            //        Console.BackgroundColor = ConsoleColor.DarkGray;
-            //        Console.WriteLine($"Parent added successfully.");
-            //        Console.ForegroundColor = ConsoleColor.White;
-            //        Console.BackgroundColor = ConsoleColor.Black;
-
-            //        return; // Exit after successful addition
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine($"An error occurred: {ex.Message}");
-            //    }
-            //}
         }
+
+        //ListAll method realising the logic of listing all of the Parent objects in the database with UI
         public override void ListAll()
         {
             Console.Clear();
@@ -142,6 +97,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Update method realising the logic of updating an existing Parent object in the database with UI
         public override void Update()
         {
             Console.Clear();
@@ -179,6 +136,8 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Fetch method realising the logic of fetching a single Parent object from the database with UI
         public override void Fetch()
         {
             Console.Clear();
@@ -209,11 +168,14 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Delete method realising the logic of deleting an existing Parent object in the database with UI
         public override void Delete()
         {
             Console.Clear();
             ShowMenu();
-            
+            ListAll();
+
             int id = InputHelper.GetValidInt("Enter ID to delete:");
             Parent parent = business.Get(id);
 

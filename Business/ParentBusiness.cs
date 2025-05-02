@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class ParentBusiness
+    //Business logic for Parent table, realising logical connections between the data and the UI
+    public class ParentBusiness : IDisposable
     {
-        private SchoolRegistryContext _context;
+        private readonly SchoolRegistryContext _context;
 
         public ParentBusiness(SchoolRegistryContext context)
         {
@@ -19,58 +20,54 @@ namespace Business
 
         public ParentBusiness()
         {
-            
+            _context = new SchoolRegistryContext();
         }
 
+        //Get All method returning all of the Parent objects
         public List<Parent> GetAll()
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                return _context.Parents.ToList();
-            }
+            return _context.Parents.ToList();
         }
 
+        //Get method returning a single Parent object by given ID
         public Parent Get(int id)
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                return _context.Parents.Find(id);
-            }
+            return _context.Parents.Find(id);
         }
 
+        //Add method for adding new Parent object to the database
         public void Add(Parent parent)
         {
-            using (_context = new SchoolRegistryContext())
+            _context.Parents.Add(parent);
+            _context.SaveChanges();
+        }
+
+        //Delete method for deleting Parent object from the database by given ID
+        public void Delete(int id)
+        {
+            var item = _context.Parents.Find(id);
+            if (item != null)
             {
-                _context.Parents.Add(parent);
+                _context.Parents.Remove(item);
                 _context.SaveChanges();
             }
         }
 
+        //Update method for updating existing Parent object in the database by given ID
         public void Update(Parent parent)
         {
-            using (_context = new SchoolRegistryContext())
+            var item = _context.Parents.Find(parent.Id);
+            if (item != null)
             {
-                var item = _context.Parents.Find(parent.Id);
-                if (item != null)
-                {
-                    _context.Entry(item).CurrentValues.SetValues(parent);
-                    _context.SaveChanges();
-                }
+                _context.Entry(item).CurrentValues.SetValues(parent);
+                _context.SaveChanges();
             }
         }
 
-        public void Delete(int id)
+        //Dispose method for closing the context
+        public void Dispose()
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                var item = _context.Parents.Find(id);
-                if (item != null)
-                {
-                    _context.Remove(item);
-                    _context.SaveChanges();
-                }
-            }
+            _context?.Dispose();
         }
     }
 }

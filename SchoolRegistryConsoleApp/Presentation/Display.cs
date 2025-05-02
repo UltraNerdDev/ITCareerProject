@@ -7,6 +7,7 @@ using Data;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class is the base class for all of the displays in the application
     public abstract class Display
     {
         private int closeOperationId = 6;
@@ -21,7 +22,7 @@ namespace SchoolRegistryConsoleApp.Presentation
 
         //Shows the user menu of the given entity on the console
         public virtual void ShowMenu() { }
-        // Reads the Input from the console
+        //Reads the Input from the console
         public void Input()
         {
             ShowMenu();
@@ -29,14 +30,13 @@ namespace SchoolRegistryConsoleApp.Presentation
             {
                 if (operation != closeOperationId)
                 {
-                    //ShowMenu();
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);  // 'true' скрива натиснатия клавиш от екрана
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);  
                     char pressedKey = keyInfo.KeyChar;
-                    // Преобразуваме натиснатия клавиш в int (ако е цифра)
                     if (char.IsDigit(pressedKey))
                         operation = int.Parse(pressedKey.ToString());
                     else
-                        operation = -1; 
+                        operation = -1;
+                    //^this fragment of the code is removing the need for pressing enter after the number is pressed by the user
                     switch (operation)
                     {
                         case 1:
@@ -55,10 +55,9 @@ namespace SchoolRegistryConsoleApp.Presentation
                             Delete();
                             break;
                         case 6:
-                            // StartUp.MainMenu();
                             break;
                         default:
-                            Console.WriteLine("Моля въведете правилна команда!");
+                            Console.WriteLine("Please type a valid command id!");
                             break;
                     }
                 }
@@ -66,45 +65,23 @@ namespace SchoolRegistryConsoleApp.Presentation
                 {
                     Console.Clear();
                 }
-
-                //if (operation != closeOperationId)
-                //{
-                //    Console.Clear();
-                //}
             } while (operation != closeOperationId);
 
         }
-        /// <summary>
-        /// Returns all of the records in the given entity
-        /// </summary>
+
+        //Returns all of the records in the given entity
         public virtual void ListAll() { }
 
-        // Checks whether or not the given string in empty. If so it returns true; otherwise fa1se.
-        public static bool EmptyStringChecker(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return false;
-            }
-            return true;
-        }
-        /// <summary>
-        /// Adds a record to the given entity
-        /// </summary>
+        //Adds a record to the given entity
         public virtual void Add() { }
-        /// <summary>
-        /// Updates a record to the given entity by accesing it by its primary key
-        /// </summary>
+
+        //Updates a record to the given entity by accesing it by its primary key
         public virtual void Update() { }
-        /// <summary>
-        /// Returns a singular record in the given entity by its primary key
-        /// </summary>
+
+        //Returns a singular record in the given entity by its primary key
         public virtual void Fetch() { }
 
-        /// <summary>
-        /// Deletes a singular record in the given entity by its primary key.
-        /// Thows an error if the operation is unsuccesful.
-        /// </summary>
+        //Deletes a singular record in the given entity by its primary key.
         public virtual void Delete() { }
     }
 

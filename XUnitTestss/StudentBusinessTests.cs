@@ -15,7 +15,14 @@ namespace XUnitTestss
                 .UseInMemoryDatabase(databaseName: "StudentBusinessTestDB")
                 .Options;
 
-            return new SchoolRegistryContext(options);
+
+            //return new SchoolRegistryContext(options);
+
+            //ensuring the in-memory database is clear every time it is being deployed
+            var context = new SchoolRegistryContext(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            return context;
         }
 
         [Fact]
@@ -23,7 +30,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var studentBusiness = new StudentBusiness();
+            using var studentBusiness = new StudentBusiness(context);
             var student = new Student
             {
                 FirstName = "John",
@@ -31,18 +38,17 @@ namespace XUnitTestss
                 Email = "john.doe@example.com",
                 Age = 20,
                 ClassGroupId = 1,
-                ParentId = 7
+                ParentId = 1
             };
 
             // Act
             studentBusiness.Add(student);
 
             // Assert
-            var result = studentBusiness.Get(student.Id);
+            var result = context.Students.FirstOrDefault(s => s.Email == "john.doe@example.com");
             Assert.NotNull(result);
             Assert.Equal("John", result.FirstName);
             Assert.Equal("Doe", result.LastName);
-            studentBusiness.Delete(student.Id);
         }
 
         [Fact]
@@ -50,26 +56,20 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var studentBusiness = new StudentBusiness();
-            //context.Students.AddRange(
-            //    new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com" },
-            //    new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com" }
-            //);
-            var student = new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com", ParentId = 7, ClassGroupId = 1 };
-            var student2 = new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com", ParentId = 7, ClassGroupId = 1 };
-            studentBusiness.Add(student);
-            studentBusiness.Add(student2);
+            using var studentBusiness = new StudentBusiness(context);
+            context.Students.AddRange(
+                new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com", ClassGroupId = 1, ParentId = 1 },
+                new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com", ClassGroupId = 1, ParentId = 1 }
+            );
             context.SaveChanges();
 
             // Act
             var students = studentBusiness.GetAll();
 
             // Assert
-            //Assert.Equal(2, students.Count);
+            Assert.Equal(2, students.Count);
             Assert.Contains(students, s => s.FirstName == "Alice" && s.LastName == "Smith");
             Assert.Contains(students, s => s.FirstName == "Bob" && s.LastName == "Brown");
-            studentBusiness.Delete(student.Id);
-            studentBusiness.Delete(student2.Id);
         }
 
         [Fact]
@@ -77,9 +77,16 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var studentBusiness = new StudentBusiness();
-            var student = new Student { FirstName = "Charlie", LastName = "Johnson", Email = "charlie.johnson@example.com",ParentId=7,ClassGroupId=1 };
-            studentBusiness.Add(student);
+            using var studentBusiness = new StudentBusiness(context);
+            var student = new Student
+            {
+                FirstName = "Charlie",
+                LastName = "Johnson",
+                Email = "charlie.johnson@example.com",
+                ClassGroupId = 1,
+                ParentId = 1
+            };
+            context.Students.Add(student);
             context.SaveChanges();
 
             // Act
@@ -89,7 +96,6 @@ namespace XUnitTestss
             Assert.NotNull(result);
             Assert.Equal("Charlie", result.FirstName);
             Assert.Equal("Johnson", result.LastName);
-            studentBusiness.Delete(student.Id);
         }
 
         [Fact]
@@ -97,8 +103,15 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var studentBusiness = new StudentBusiness();
-            var student = new Student { FirstName = "David", LastName = "Williams", Email = "david.williams@example.com" };
+            using var studentBusiness = new StudentBusiness(context);
+            var student = new Student
+            {
+                FirstName = "David",
+                LastName = "Williams",
+                Email = "david.williams@example.com",
+                ClassGroupId = 1,
+                ParentId = 1
+            };
             context.Students.Add(student);
             context.SaveChanges();
 
@@ -117,9 +130,16 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var studentBusiness = new StudentBusiness();
-            var student = new Student { FirstName = "Eve", LastName = "Taylor", Email = "eve.taylor@example.com",ClassGroupId=1,ParentId=7 };
-            studentBusiness.Add(student);
+            using var studentBusiness = new StudentBusiness(context);
+            var student = new Student
+            {
+                FirstName = "Eve",
+                LastName = "Taylor",
+                Email = "eve.taylor@example.com",
+                ClassGroupId = 1,
+                ParentId = 1
+            };
+            context.Students.Add(student);
             context.SaveChanges();
 
             // Act

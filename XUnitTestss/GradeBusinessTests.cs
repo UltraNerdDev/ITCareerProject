@@ -15,7 +15,13 @@ namespace XUnitTestss
                 .UseInMemoryDatabase(databaseName: "GradeBusinessTestDB")
                 .Options;
 
-            return new SchoolRegistryContext(options);
+            //return new SchoolRegistryContext(options);
+
+            //ensuring the in-memory database is clear every time it is being deployed
+            var context = new SchoolRegistryContext(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            return context;
         }
 
         [Fact]
@@ -23,7 +29,7 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var gradeBusiness = new GradeBusiness(context);
+            using var gradeBusiness = new GradeBusiness(context);
             var grade = new Grade
             {
                 Value = 95.5,
@@ -42,7 +48,6 @@ namespace XUnitTestss
             Assert.NotNull(result);
             Assert.Equal(95.5, result.Value);
             Assert.Equal("Excellent performance", result.Comment);
-            gradeBusiness.Delete(result.Id); // Clean up after test
         }
 
         [Fact]
@@ -50,13 +55,23 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var gradeBusiness = new GradeBusiness(context);
-            //context.Grades.AddRange(
-            //   new Grade { Value = 85.0, Date = new DateOnly(2025, 5, 1), Comment = "Good", StudentId = 1, SubjectId = 1, TeacherId = 1 },
-            //   new Grade { Value = 90.0, Date = new DateOnly(2025, 5, 2), Comment = "Very Good", StudentId = 2, SubjectId = 2, TeacherId = 2 }
-            //);
-            var grade1 = new Grade { Value = 85.0, Date = new DateOnly(2025, 5, 1), Comment = "Good", StudentId = 18, SubjectId = 1, TeacherId = 1 };
-            var grade2 = new Grade { Value = 90.0, Date = new DateOnly(2025, 5, 2), Comment = "Very Good", StudentId = 18, SubjectId = 1, TeacherId = 1 };
+            using var gradeBusiness = new GradeBusiness(context);
+            var grade1 = new Grade 
+            { 
+                Value = 85.0, Date = new DateOnly(2025, 5, 1), 
+                Comment = "Good", 
+                StudentId = 18, 
+                SubjectId = 1, 
+                TeacherId = 1 
+            };
+            var grade2 = new Grade 
+            { 
+                Value = 90.0, Date = new DateOnly(2025, 5, 2), 
+                Comment = "Very Good", 
+                StudentId = 18, 
+                SubjectId = 1, 
+                TeacherId = 1 
+            };
             gradeBusiness.Add(grade1);
             gradeBusiness.Add(grade2);
             context.SaveChanges();
@@ -65,11 +80,9 @@ namespace XUnitTestss
             var grades = gradeBusiness.GetAll();
 
             // Assert
-           // Assert.Equal(2, grades.Count);
+            Assert.Equal(2, grades.Count);
             Assert.Contains(grades, g => g.Comment == "Good");
             Assert.Contains(grades, g => g.Comment == "Very Good");
-            gradeBusiness.Delete(grade1.Id); // Clean up after test
-            gradeBusiness.Delete(grade2.Id); // Clean up after test
         }
 
         [Fact]
@@ -77,8 +90,16 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 88.0, Date = new DateOnly(2025, 5, 3), Comment = "Satisfactory", StudentId = 18, SubjectId = 1, TeacherId = 1 };
+            using var gradeBusiness = new GradeBusiness(context);
+            var grade = new Grade 
+            { 
+                Value = 88.0, 
+                Date = new DateOnly(2025, 5, 3), 
+                Comment = "Satisfactory", 
+                StudentId = 18, 
+                SubjectId = 1, 
+                TeacherId = 1 
+            };
             gradeBusiness.Add(grade);
             context.SaveChanges();
 
@@ -89,7 +110,6 @@ namespace XUnitTestss
             Assert.NotNull(result);
             Assert.Equal(88.0, result.Value);
             Assert.Equal("Satisfactory", result.Comment);
-            gradeBusiness.Delete(grade.Id); // Clean up after test
         }
 
         [Fact]
@@ -97,8 +117,14 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 70.0, Date = new DateOnly(2025, 5, 4), Comment = "Needs Improvement", StudentId = 18, SubjectId = 1, TeacherId = 1 };
+            using var gradeBusiness = new GradeBusiness(context);
+            var grade = new Grade 
+            { 
+                Value = 70.0, Date = new DateOnly(2025, 5, 4), 
+                Comment = "Needs Improvement", 
+                StudentId = 18, SubjectId = 1, 
+                TeacherId = 1 
+            };
             context.Grades.Add(grade);
             context.SaveChanges();
 
@@ -119,8 +145,16 @@ namespace XUnitTestss
         {
             // Arrange
             using var context = GetInMemoryContext();
-            var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 60.0, Date = new DateOnly(2025, 5, 5), Comment = "Poor", StudentId = 18, SubjectId = 1, TeacherId = 1 };
+            using var gradeBusiness = new GradeBusiness(context);
+            var grade = new Grade 
+            { 
+                Value = 60.0, 
+                Date = new DateOnly(2025, 5, 5), 
+                Comment = "Poor", 
+                StudentId = 18, 
+                SubjectId = 1, 
+                TeacherId = 1 
+            };
             gradeBusiness.Add(grade);
             context.SaveChanges();
 

@@ -10,16 +10,20 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class for Students, using the business layer to perform CRUD operations and enhancing the UI experience
     public class StudentsDisplay : Display
     {
         private int closeOperationId = 6;        
         private StudentBusiness studentBusiness = new StudentBusiness();
         private ParentBusiness  parentBusiness = new ParentBusiness();
         private ClassGroupBusiness groupBusiness = new ClassGroupBusiness();
+
         public StudentsDisplay()
         {
             Input();
         }
+
+        //Shows the user menu of the given entity on the console
         public override void ShowMenu()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -42,47 +46,12 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Add method realising the logic of adding a new Student object to the database with UI
         public override void Add()
         {
             Console.Clear();
             ShowMenu();
-            //Student student = new Student();
-            //Console.WriteLine("Enter First Name: ");
-            //student.FirstName = Console.ReadLine();
-            //Console.WriteLine("Enter Last Name: ");
-            //student.LastName = Console.ReadLine();
-            //Console.WriteLine("Ënter Age number: ");
-            //student.Age = int.Parse(Console.ReadLine());
-            //Console.WriteLine("Ënter Class Group ID: ");
-            //var items = groupBusiness.GetAll();
-            //if (items.Count == 0)
-            //    Console.WriteLine("None");
-            //else
-            //    foreach (var item in items)
-            //        Console.WriteLine($"{item.Id,-5} {item.Name,7} {item.Year}");
-            //Console.WriteLine("Avaliable class groups");
-            //student.ClassGroupId = int.Parse(Console.ReadLine());
-            //Console.WriteLine("Enter email: ");
-            //student.Email = Console.ReadLine();
-            //Console.WriteLine("Enter date: ");
-            //student.EnrollmentDate = DateOnly.Parse(Console.ReadLine());
-            //Console.WriteLine("Enter parent Id: ");
-            //var items2 = parentBusiness.GetAll();
-            //if (items2.Count == 0)
-            //    Console.WriteLine("None");
-            //else
-            //    foreach (var item in items2)
-            //        Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
-            //Console.WriteLine("Avaliable parents");
-            //student.ParentId = int.Parse(Console.ReadLine());
-            //studentBusiness.Add(student);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Student \"{student.FirstName}-{student.LastName}-{student.Age}-{student.ClassGroup}-{student.Email}-{student.EnrollmentDate}-{student.Parent}\" added.");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
 
             string firstName = InputHelper.GetNonEmptyString("Enter student's first name:");
             string lastName = InputHelper.GetNonEmptyString("Enter student's last name:");
@@ -161,6 +130,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //ListAll method realising the logic of listing all of the Student objects in the database with UI
         public override void ListAll()
         {
             Console.Clear();
@@ -176,8 +147,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             if (items.Count == 0)
                 Console.WriteLine("No students found                                                    ");
             else
-                foreach (var item in items)
-                    //Console.WriteLine($"{item.Id,-5} {item.FirstName,4} {item.LastName,4} {item.Age}");
+                foreach (var item in items)                   
                     Console.WriteLine(item);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.BackgroundColor = ConsoleColor.White;
@@ -185,6 +155,8 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        //Update method realising the logic of updating an existing Student object in the database with UI
         public override void Update()
         {
             Console.Clear();
@@ -201,6 +173,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 student.Email = InputHelper.GetNonEmptyString("Enter student's email:");
                 student.Age = InputHelper.GetValidInt("Enter student's age:");
 
+                //Displaying the available classes and parents
                 var omom = groupBusiness.GetAll();
                 Console.WriteLine("Avalible classes:");
                 Console.WriteLine(new string('-', 21));
@@ -253,6 +226,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             }
         }
 
+        //Fetch method realising the logic of fetching a single Student object from the database with UI
         public override void Fetch()
         {
             Console.Clear();
@@ -283,27 +257,12 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }
+
+        //Delete method realising the logic of deleting an existing Student object in the database with UI
         public override void Delete()
         {
             Console.Clear();
             ShowMenu();
-            //int id = 0;
-            //Console.WriteLine("All current students:");
-            //ListAll();
-            //Console.Write("Enter ID to delete: ");
-            //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            //char pressedKey = keyInfo.KeyChar;
-            //if (char.IsDigit(pressedKey))
-            //    id = int.Parse(pressedKey.ToString());
-            //studentBusiness.Delete(id);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Student with id:{id} deleted");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
-
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to delete:");

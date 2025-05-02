@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Display class for Subjects, using the business layer to perform CRUD operations and enhancing the UI experience
     public class SubjectDisplay : Display
     {
         private int closeOperationId = 6;
@@ -19,6 +20,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Input();
         }
 
+        //Shows the user menu of the given entity on the console
         public override void ShowMenu()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -42,22 +44,11 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
-
+        //Add method realising the logic of adding a new Subject object to the database with UI
         public override void Add()
         {
             Console.Clear();
             ShowMenu();
-            //Subject subject = new Subject();
-            //Console.WriteLine("Enter name: ");
-            //subject.Name = Console.ReadLine();
-            //business.Add(subject);
-            //Console.Clear();
-            //ShowMenu();
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.BackgroundColor = ConsoleColor.DarkGray;
-            //Console.WriteLine($"Subject \"{subject.Name}\" added.");
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
 
             string name = InputHelper.GetNonEmptyString("Enter subject's name:");
 
@@ -77,6 +68,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
+        //ListAll method realising the logic of listing all of the Subject objects in the database with UI
         public override void ListAll()
         {
             Console.Clear();
@@ -99,6 +91,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
+        //Update method realising the logic of updating an existing Subject object in the database with UI
         public override void Update()
         {
             Console.Clear();
@@ -134,6 +127,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             }
         }
 
+        //Fetch method realising the logic of fetching a single Subject object from the database with UI
         public override void Fetch()
         {
             Console.Clear();
@@ -165,6 +159,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             }
         }
 
+        //Delete method realising the logic of deleting an existing Subject object in the database with UI
         public override void Delete()
         {
             Console.Clear();

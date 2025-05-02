@@ -9,9 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
-    public class GradeBusiness
+    //Business logic for Grade table, realising logical connections between the data and the UI
+    public class GradeBusiness : IDisposable
     {
-        private SchoolRegistryContext _context;
+        private readonly SchoolRegistryContext _context;
 
         public GradeBusiness(SchoolRegistryContext context)
         {
@@ -20,69 +21,54 @@ namespace Business
 
         public GradeBusiness()
         {
-            
+            _context = new SchoolRegistryContext();
         }
 
+        //Get All method returning all of the Grade objects
         public List<Grade> GetAll()
         {
-            using (_context = new SchoolRegistryContext())
-            {                
-                //return context.Grades.ToList();
-                return _context.Grades
-                     .Include(g => g.Student)
-                     .Include(g => g.Subject)
-                     .Include(g => g.Teacher)
-                     .ToList();
-            }
+            return _context.Grades.ToList();
         }
 
+        //Get method returning a single Grade object by given ID
         public Grade Get(int id)
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                // Example: fetching a single Enrollment with related entities loaded
-                var enrollment = _context.Grades
-                                        .Include(e => e.Student)
-                                        .Include(e => e.Subject)
-                                        .Include(e => e.Teacher)
-                                        .FirstOrDefault(e => e.Id == id);
-                return _context.Grades.Find(id);
-            }
+            return _context.Grades.Find(id);
         }
 
+        //Add method for adding new Grade object to the database
         public void Add(Grade grade)
         {
-            using (_context = new SchoolRegistryContext())
+            _context.Grades.Add(grade);
+            _context.SaveChanges();
+        }
+
+        //Delete method for deleting existing Grade object in the database by given ID
+        public void Delete(int id)
+        {
+            var item = _context.Grades.Find(id);
+            if (item != null)
             {
-                _context.Grades.Add(grade);
+                _context.Grades.Remove(item);
                 _context.SaveChanges();
             }
         }
 
+        //Update method for updating existing Grade object in the database by given ID
         public void Update(Grade grade)
         {
-            using (_context = new SchoolRegistryContext())
+            var item = _context.Grades.Find(grade.Id);
+            if (item != null)
             {
-                var item = _context.Grades.Find(grade.Id);
-                if (item != null)
-                {
-                    _context.Entry(item).CurrentValues.SetValues(grade);
-                    _context.SaveChanges();
-                }
+                _context.Entry(item).CurrentValues.SetValues(grade);
+                _context.SaveChanges();
             }
         }
 
-        public void Delete(int id)
+        //Dispose method for closing the context
+        public void Dispose()
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                var item = _context.Grades.Find(id);
-                if (item != null)
-                {
-                    _context.Remove(item);
-                    _context.SaveChanges();
-                }
-            }
+            _context?.Dispose();
         }
     }
 }

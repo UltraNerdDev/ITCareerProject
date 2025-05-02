@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
+    //Teacher object model
     public class Teacher
     {
         [Key]
@@ -29,14 +30,12 @@ namespace Data.Models
         [ForeignKey(nameof(SubjectId))]
         public Subject Subject { get; set; }
 
+        //Conection to ClassGroup
         public ICollection<ClassGroup> Classes { get; set; }
 
+        //Refactored ToString method for better readability
         public override string ToString()
         {
-            //return $"TeacherID: {Id,-60}\nFirst name: {FirstName, -60}\nLast name: {LastName,-60}\n" +
-            //    $"Phone number: {(Phone != null ? Phone : "None"), -60}\nEmail: {Email}" +
-            //    $"\nSubject: {(Subject != null ? Subject.Name : "None"), -60}";
-
             return
                 $"{"TeacherID:",-15}{Id,-51}\n" +
                 $"{"First name:",-15}{FirstName,-51}\n" +

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
+    //Subject object model
     public class Subject
     {
         [Key]
@@ -17,6 +18,7 @@ namespace Data.Models
         [Required]
         public string Name { get; set; }
 
+        //Refactored ToString method for better readability
         public override string ToString()
         {
             return $"SubjectID: {Id, -8}\nSubject name: {Name, -12}";

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SchoolRegistryConsoleApp.Presentation
 {
+    //Input helper class adding methods for reading input, thus making the code more readable and reusable
     public static class InputHelper
     {
+        //Method for reading a non-empty string from the console
         public static string GetNonEmptyString(string prompt)
         {
             string input;
@@ -23,24 +25,22 @@ namespace SchoolRegistryConsoleApp.Presentation
             }
         }
 
+        //Method for validating a string input used for int properties
         public static int GetValidInt(string prompt)
         {
             while (true)
             {
-                int id = 0;
                 Console.WriteLine(prompt);
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                char pressedKey = keyInfo.KeyChar;
-                if (char.IsDigit(pressedKey))
-                {
-                    id = int.Parse(pressedKey.ToString());
-                    return id;
-                }
+                string input = Console.ReadLine()?.Trim();
+
+                if (int.TryParse(input, out int result))
+                    return result;
                 else
                     Console.WriteLine("Invalid input. Please enter a valid number.");
             }
         }
 
+        //Method for validating a string input used for int properties (4 digit long years)
         public static int GetValidIntYear(string prompt)
         {
             while (true)
@@ -61,6 +61,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             }
         }
 
+        //Method for validating a foreign key input
         public static int GetValidForeignKey<T>(string prompt, Func<SchoolRegistryContext, DbSet<T>> dbSetSelector) where T : class
         {
             int id;

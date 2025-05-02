@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
+    //Parent object model
     public class Parent
     {
         [Key]
@@ -26,12 +27,12 @@ namespace Data.Models
         [Required]
         public string Email { get; set; }
 
-        // Връзка към ученици
+        //Connection to Student
         public ICollection<Student> Students { get; set; }
+
+        //Refactored ToString method for better readability
         public override string ToString()
         {
-            //return $"ParentID: {Id,-8}\nFirst name: {FirstName, -10}\nLast name: {LastName,-10}\n" +
-            //    $"Phone number: {(PhoneNumber != null ? PhoneNumber : "None"),-12}\nEmail: {Email}";
             return
                 $"{"Parent ID:",-25}{Id,-35}\n" +
                 $"{"First name:",-25}{FirstName,-35}\n" +

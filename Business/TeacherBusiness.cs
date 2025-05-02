@@ -9,75 +9,65 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
-    public class TeacherBusiness
+    //Business logic for Teacher table, realising logical connections between the data and the UI
+    public class TeacherBusiness : IDisposable
     {
-        private SchoolRegistryContext _context;
+        private readonly SchoolRegistryContext _context;
 
         public TeacherBusiness(SchoolRegistryContext context)
         {
             _context = context;
         }
-
         public TeacherBusiness()
         {
-
+            _context = new SchoolRegistryContext();
         }
 
+        //Get All method returning all of the Teacher objects
         public List<Teacher> GetAll()
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                return _context.Teachers                    
-                    .Include(t => t.Subject)
-                    .ToList();
-              //  return context.Teachers.ToList();
-            }
+            return _context.Teachers.ToList();
         }
 
+        //Get method returning a single Teacher object by given ID
         public Teacher Get(int id)
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                var enrollment = _context.Teachers
-                                        .Include(e => e.Subject)
-                                        .FirstOrDefault(e => e.Id == id);
-                return _context.Teachers.Find(id);
-            }
+            return _context.Teachers.Find(id);
         }
 
+        //Add method for adding new Teacher object to the database
         public void Add(Teacher teacher)
         {
-            using (_context = new SchoolRegistryContext())
+            _context.Teachers.Add(teacher);
+            _context.SaveChanges();
+        }
+
+        //Delete method for deleting Teacher object from the database by given ID
+        public void Delete(int id)
+        {
+            var item = _context.Teachers.Find(id);
+            if (item != null)
             {
-                _context.Teachers.Add(teacher);
+                _context.Teachers.Remove(item);
                 _context.SaveChanges();
             }
         }
 
+        //Update method for updating existing Teacher object in the database by given ID
         public void Update(Teacher teacher)
         {
-            using (_context = new SchoolRegistryContext())
+            var item = _context.Teachers.Find(teacher.Id);
+            if (item != null)
             {
-                var item = _context.Teachers.Find(teacher.Id);
-                if (item != null)
-                {
-                    _context.Entry(item).CurrentValues.SetValues(teacher);
-                    _context.SaveChanges();
-                }
+                _context.Entry(item).CurrentValues.SetValues(teacher);
+                _context.SaveChanges();
             }
         }
 
-        public void Delete(int id)
+        //Dispose method for closing the context
+        public void Dispose()
         {
-            using (_context = new SchoolRegistryContext())
-            {
-                var item = _context.Teachers.Find(id);
-                if (item != null)
-                {
-                    _context.Remove(item);
-                    _context.SaveChanges();
-                }
-            }
+            _context?.Dispose();
         }
     }
 }
