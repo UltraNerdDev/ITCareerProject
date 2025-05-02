@@ -22,11 +22,13 @@ namespace Data
         public SchoolRegistryContext(DbContextOptions<SchoolRegistryContext> options)
     : base(options)
         {
+
         }
 
         //Constructor without parameters when SQL database is needed
         public SchoolRegistryContext()
         {
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

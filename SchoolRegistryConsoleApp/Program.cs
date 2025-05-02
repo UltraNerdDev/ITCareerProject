@@ -23,10 +23,10 @@ namespace SchoolRegistryConsoleApp
           ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████ ");
             Console.WriteLine(new string('=', 80));
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
 
             //Wait for a key press
             Console.WriteLine("Press any key to continue...");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.ReadKey(true); 
 
             //Check if the database is empty
