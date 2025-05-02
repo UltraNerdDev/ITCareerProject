@@ -15,8 +15,6 @@ namespace XUnitTestss
                 .UseInMemoryDatabase(databaseName: "ParentBusinessTestDB")
                 .Options;
 
-            //return new SchoolRegistryContext(options);
-
             //ensuring the in-memory database is clear every time it is being deployed
             var context = new SchoolRegistryContext(options);
             context.Database.EnsureDeleted();

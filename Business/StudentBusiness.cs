@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
@@ -26,13 +27,21 @@ namespace Business
         //Get All method returning all of the Student objects
         public List<Student> GetAll()
         {
-            return _context.Students.ToList();
+            return _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .ToList();
         }
 
         //Get method returning a single Student object by given ID
         public Student Get(int id)
         {
-            return _context.Students.Find(id);
+            return _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == id);
         }
 
         //Add method for adding new Student object to the database
@@ -45,7 +54,11 @@ namespace Business
         //Delete method for deleting Student object from the database by given ID
         public void Delete(int id)
         {
-            var item = _context.Students.Find(id);
+            var item = _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == id);
             if (item != null)
             {
                 _context.Students.Remove(item);
@@ -56,7 +69,11 @@ namespace Business
         //Update method for updating existing Student object in the database by given ID
         public void Update(Student student)
         {
-            var item = _context.Students.Find(student.Id);
+            var item = _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == student.Id);
             if (item != null)
             {
                 _context.Entry(item).CurrentValues.SetValues(student);

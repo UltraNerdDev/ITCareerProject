@@ -13,8 +13,6 @@ namespace XUnitTestss
                 .UseInMemoryDatabase(databaseName: "SubjectBusinessTestDB")
                 .Options;
 
-            //return new SchoolRegistryContext(options);
-
             //ensuring the in-memory database is clear every time it is being deployed
             var context = new SchoolRegistryContext(options);
             context.Database.EnsureDeleted();
@@ -103,6 +101,29 @@ namespace XUnitTestss
             // Assert
             var result = context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void UpdateSubject_ShouldModifyTeacherInDatabase()
+        {
+            // Arrange
+            using var context = GetInMemoryContext();
+            using var subjectBusiness = new SubjectBusiness(context);
+            var subject = new Subject
+            {
+                Name = "History"
+            };
+            subjectBusiness.Add(subject);
+            context.SaveChanges();
+
+            // Act
+            subject.Name = "World History";
+            subjectBusiness.Update(subject);
+
+            // Assert
+            var result = subjectBusiness.Get(subject.Id);
+            Assert.NotNull(result);
+            Assert.Equal("World History", result.Name);
         }
     }
 }

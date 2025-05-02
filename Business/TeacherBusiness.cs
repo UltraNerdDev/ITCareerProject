@@ -26,13 +26,19 @@ namespace Business
         //Get All method returning all of the Teacher objects
         public List<Teacher> GetAll()
         {
-            return _context.Teachers.ToList();
+            return _context.Teachers
+                .Include(t => t.Subject)
+                .Include(t => t.Classes)
+                .ToList();
         }
 
         //Get method returning a single Teacher object by given ID
         public Teacher Get(int id)
         {
-            return _context.Teachers.Find(id);
+            return _context.Teachers
+                .Include(t => t.Subject)
+                .Include(t => t.Classes)
+                .FirstOrDefault(t => t.Id == id);
         }
 
         //Add method for adding new Teacher object to the database
@@ -45,7 +51,10 @@ namespace Business
         //Delete method for deleting Teacher object from the database by given ID
         public void Delete(int id)
         {
-            var item = _context.Teachers.Find(id);
+            var item = _context.Teachers
+                .Include(t => t.Subject)
+                .Include(t => t.Classes)
+                .FirstOrDefault(t => t.Id == id);
             if (item != null)
             {
                 _context.Teachers.Remove(item);
@@ -56,7 +65,10 @@ namespace Business
         //Update method for updating existing Teacher object in the database by given ID
         public void Update(Teacher teacher)
         {
-            var item = _context.Teachers.Find(teacher.Id);
+            var item = _context.Teachers
+                .Include(t => t.Subject)
+                .Include(t => t.Classes)
+                .FirstOrDefault(t => t.Id == teacher.Id);
             if (item != null)
             {
                 _context.Entry(item).CurrentValues.SetValues(teacher);
