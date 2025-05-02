@@ -28,9 +28,10 @@ namespace XUnitTestss
             subjectBusiness.Add(subject);
 
             // Assert
-            var result = context.Subjects.FirstOrDefault(s => s.Name == "Mathematics");
+            var result = subjectBusiness.Get(subject.Id);
             Assert.NotNull(result);
             Assert.Equal("Mathematics", result.Name);
+            subjectBusiness.Delete(subject.Id); // Clean up after test
         }
 
         [Fact]

@@ -29,7 +29,7 @@ namespace XUnitTestss
                 Value = 95.5,
                 Date = new DateOnly(2025, 5, 1),
                 Comment = "Excellent performance",
-                StudentId = 1,
+                StudentId = 18,
                 SubjectId = 1,
                 TeacherId = 1
             };
@@ -55,8 +55,8 @@ namespace XUnitTestss
             //   new Grade { Value = 85.0, Date = new DateOnly(2025, 5, 1), Comment = "Good", StudentId = 1, SubjectId = 1, TeacherId = 1 },
             //   new Grade { Value = 90.0, Date = new DateOnly(2025, 5, 2), Comment = "Very Good", StudentId = 2, SubjectId = 2, TeacherId = 2 }
             //);
-            var grade1 = new Grade { Value = 85.0, Date = new DateOnly(2025, 5, 1), Comment = "Good", StudentId = 1, SubjectId = 1, TeacherId = 1 };
-            var grade2 = new Grade { Value = 90.0, Date = new DateOnly(2025, 5, 2), Comment = "Very Good", StudentId = 1, SubjectId = 1, TeacherId = 1 };
+            var grade1 = new Grade { Value = 85.0, Date = new DateOnly(2025, 5, 1), Comment = "Good", StudentId = 18, SubjectId = 1, TeacherId = 1 };
+            var grade2 = new Grade { Value = 90.0, Date = new DateOnly(2025, 5, 2), Comment = "Very Good", StudentId = 18, SubjectId = 1, TeacherId = 1 };
             gradeBusiness.Add(grade1);
             gradeBusiness.Add(grade2);
             context.SaveChanges();
@@ -78,7 +78,7 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 88.0, Date = new DateOnly(2025, 5, 3), Comment = "Satisfactory", StudentId = 1, SubjectId = 1, TeacherId = 1 };
+            var grade = new Grade { Value = 88.0, Date = new DateOnly(2025, 5, 3), Comment = "Satisfactory", StudentId = 18, SubjectId = 1, TeacherId = 1 };
             gradeBusiness.Add(grade);
             context.SaveChanges();
 
@@ -98,7 +98,7 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 70.0, Date = new DateOnly(2025, 5, 4), Comment = "Needs Improvement", StudentId = 1, SubjectId = 1, TeacherId = 1 };
+            var grade = new Grade { Value = 70.0, Date = new DateOnly(2025, 5, 4), Comment = "Needs Improvement", StudentId = 18, SubjectId = 1, TeacherId = 1 };
             context.Grades.Add(grade);
             context.SaveChanges();
 
@@ -120,7 +120,7 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             var gradeBusiness = new GradeBusiness(context);
-            var grade = new Grade { Value = 60.0, Date = new DateOnly(2025, 5, 5), Comment = "Poor", StudentId = 1, SubjectId = 1, TeacherId = 1 };
+            var grade = new Grade { Value = 60.0, Date = new DateOnly(2025, 5, 5), Comment = "Poor", StudentId = 18, SubjectId = 1, TeacherId = 1 };
             gradeBusiness.Add(grade);
             context.SaveChanges();
 

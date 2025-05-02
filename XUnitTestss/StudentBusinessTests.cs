@@ -30,8 +30,8 @@ namespace XUnitTestss
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 Age = 20,
-                ClassGroupId = 2,
-                ParentId = 12
+                ClassGroupId = 1,
+                ParentId = 7
             };
 
             // Act
@@ -55,8 +55,8 @@ namespace XUnitTestss
             //    new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com" },
             //    new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com" }
             //);
-            var student = new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com", ParentId = 12, ClassGroupId = 2 };
-            var student2 = new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com", ParentId = 12, ClassGroupId = 2 };
+            var student = new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com", ParentId = 7, ClassGroupId = 1 };
+            var student2 = new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com", ParentId = 7, ClassGroupId = 1 };
             studentBusiness.Add(student);
             studentBusiness.Add(student2);
             context.SaveChanges();
@@ -78,7 +78,7 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             var studentBusiness = new StudentBusiness();
-            var student = new Student { FirstName = "Charlie", LastName = "Johnson", Email = "charlie.johnson@example.com",ParentId=12,ClassGroupId=2 };
+            var student = new Student { FirstName = "Charlie", LastName = "Johnson", Email = "charlie.johnson@example.com",ParentId=7,ClassGroupId=1 };
             studentBusiness.Add(student);
             context.SaveChanges();
 
@@ -118,7 +118,7 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             var studentBusiness = new StudentBusiness();
-            var student = new Student { FirstName = "Eve", LastName = "Taylor", Email = "eve.taylor@example.com",ClassGroupId=2,ParentId=12 };
+            var student = new Student { FirstName = "Eve", LastName = "Taylor", Email = "eve.taylor@example.com",ClassGroupId=1,ParentId=7 };
             studentBusiness.Add(student);
             context.SaveChanges();
 
