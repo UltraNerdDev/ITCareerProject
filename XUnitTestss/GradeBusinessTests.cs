@@ -155,12 +155,13 @@ namespace XUnitTestss
             };
             gradeBusiness.Add(grade);
             context.SaveChanges();
+            int id = grade.Id;
 
             // Act
             gradeBusiness.Delete(grade.Id);
 
             // Assert
-            var result = context.Grades.FirstOrDefault(g => g.Id == grade.Id);
+            var result = context.Grades.FirstOrDefault(g => g.Id == id);
             Assert.Null(result);
         }
     }
