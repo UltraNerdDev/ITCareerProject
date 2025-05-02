@@ -103,7 +103,8 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            
+            ListAll();
+
             int id = InputHelper.GetValidInt("Enter ID to update:");
             Parent parent = business.Get(id);
 
@@ -146,10 +147,7 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("All current Parents:");
             ListAll();
             Console.WriteLine("Enter ID to fetch: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            char pressedKey = keyInfo.KeyChar;
-            if (char.IsDigit(pressedKey))
-                id = int.Parse(pressedKey.ToString());
+            id = InputHelper.GetValidInt("Enter ID to fetch:");
             Parent parent = business.Get(id);
             if (parent != null)
             {

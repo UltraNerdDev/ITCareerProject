@@ -54,6 +54,11 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var studentBusiness = new StudentBusiness(context);
+
+            context.Parents.Add(new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" });
+            context.Classes.Add(new ClassGroup { Id = 1, Name = "Class A", Year = 2023 });
+            context.SaveChanges();
+
             context.Students.AddRange(
                 new Student { FirstName = "Alice", LastName = "Smith", Email = "alice.smith@example.com", ClassGroupId = 1, ParentId = 1 },
                 new Student { FirstName = "Bob", LastName = "Brown", Email = "bob.brown@example.com", ClassGroupId = 1, ParentId = 1 }

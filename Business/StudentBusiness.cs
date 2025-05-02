@@ -23,16 +23,16 @@ namespace Business
         {
             _context = new SchoolRegistryContext();
         }
+        //Commented code does not work for the ToString() method
 
         //Get All method returning all of the Student objects
         public List<Student> GetAll()
         {
-            //return _context.Students
-            //    .Include(s => s.ClassGroup)
-            //    .Include(s => s.Parent)
-            //    .Include(s => s.Grades)
-            //    .ToList();
-            return _context.Students.ToList();
+            return _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .ToList();
         }
 
         //Get method returning a single Student object by given ID

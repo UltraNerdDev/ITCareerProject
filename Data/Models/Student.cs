@@ -51,7 +51,7 @@ namespace Data.Models
                 $"{"Age:",-25}{(Age != null ? Age : "Empty"),-44}\n" +
                 $"{"Email:",-25}{Email,-44}\n" +
                 $"{"Enrollment date:",-25}{(EnrollmentDate != null ? EnrollmentDate : "None"),-44}\n" +
-                $"{"Parent ID:",-25}{(ParentId != null ? ParentId : "None"),-44}\n" +
+                $"{"Parent ID:",-25}{(ParentId != null ? Parent.FirstName + " " + Parent.LastName : "None"),-44}\n" +
                 $"{new string(' ', 69)}";
         }
     }

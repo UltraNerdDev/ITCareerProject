@@ -54,11 +54,22 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var gradeBusiness = new GradeBusiness(context);
+
+            var parent = new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" };
+            var student = new Student { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "outlook@com" };
+            var subject = new Subject { Id = 1, Name = "Math" };
+            var teacher = new Teacher { Id = 1, FirstName = "John", LastName = "Doe", Email = "outlook@com", Phone = "123456789" };
+
+            context.Subjects.Add(subject);
+            context.Students.Add(student);
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
+
             var grade1 = new Grade 
             { 
                 Value = 85.0, Date = new DateOnly(2025, 5, 1), 
                 Comment = "Good", 
-                StudentId = 18, 
+                StudentId = 1, 
                 SubjectId = 1, 
                 TeacherId = 1 
             };
@@ -66,10 +77,11 @@ namespace XUnitTestss
             { 
                 Value = 90.0, Date = new DateOnly(2025, 5, 2), 
                 Comment = "Very Good", 
-                StudentId = 18, 
+                StudentId = 1, 
                 SubjectId = 1, 
                 TeacherId = 1 
             };
+
             gradeBusiness.Add(grade1);
             gradeBusiness.Add(grade2);
             context.SaveChanges();

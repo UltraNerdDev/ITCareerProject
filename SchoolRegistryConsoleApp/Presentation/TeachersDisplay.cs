@@ -127,7 +127,8 @@ namespace SchoolRegistryConsoleApp.Presentation
         public override void Update()
         {
             Console.Clear();
-            ShowMenu();         
+            ShowMenu();
+            Console.WriteLine("All current teachers:");
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -195,14 +196,10 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            int id = 0;
-            Console.WriteLine("All current Parents:");
+            Console.WriteLine("All current teachers:");
             ListAll();
-            Console.WriteLine("Enter ID to fetch: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            char pressedKey = keyInfo.KeyChar;
-            if (char.IsDigit(pressedKey))
-                id = int.Parse(pressedKey.ToString());
+            
+            int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Teacher teacher = teacherBusiness.Get(id);
             if (teacher != null)
             {
@@ -227,7 +224,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            
+            Console.WriteLine("All current teachers:");
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to delete:");

@@ -24,6 +24,8 @@ namespace Business
             _context = new SchoolRegistryContext();
         }
 
+        //Commented code does not work for the ToString() method
+
         //Get All method returning all of the Grade objects
         public List<Grade> GetAll()
         {

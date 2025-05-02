@@ -166,6 +166,7 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
+            Console.WriteLine("All current grades:");
             ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to update:");
@@ -266,14 +267,10 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            int id = 0;
-            Console.WriteLine("All current Grades:");
+            Console.WriteLine("All current grades:");
             ListAll();
-            Console.WriteLine("Enter ID to fetch: ");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);            
-            char pressedKey = keyInfo.KeyChar;
-            if (char.IsDigit(pressedKey))
-                id = int.Parse(pressedKey.ToString());
+
+            int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Grade grade = gradeBusiness.Get(id);
             if (grade != null)
             {
@@ -298,7 +295,9 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            
+            Console.WriteLine("All current grades:");
+            ListAll();
+
             int id = InputHelper.GetValidInt("Enter ID to delete:");
             Grade grade = gradeBusiness.Get(id);
 

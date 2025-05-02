@@ -32,7 +32,7 @@ namespace Data.Models
             return
                 $"{"Class ID:",-25}{Id,-42}\n" +
                 $"{"Class name:",-25}{Name,-42}\n" +
-                $"{"Class teacher:",-25}{Teacher.FirstName + " " + Teacher.LastName,-42}\n" +
+                $"{"Class teacher:",-25}{(Teacher != null ? Teacher.FirstName + " " + Teacher.LastName : "None"),-42}\n" +
                 $"{new string(' ', 67)}";
         }
     }
