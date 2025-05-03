@@ -35,8 +35,6 @@ namespace Data
         {
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=SchoolRegistryDB;Integrated Security = true;TrustServerCertificate=true");
-            //DESKTOP-AVBG2ST\SQLEXPRESS - Ves database
-            //Gummie\SQLEXPRESS - Alex database
         }
 
         //OnModelCreating method is not required here, because of the anotations in the models

@@ -15,7 +15,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         private ClassGroupBusiness classBusiness = new ClassGroupBusiness();
         private TeacherBusiness teacherBusiness = new TeacherBusiness();
         
-
         public ClassGroupDisplay()
         {
             Input();
