@@ -28,12 +28,23 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var gradeBusiness = new GradeBusiness(context);
+
+            var parent = new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" };
+            var student = new Student { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "outlook@com" };
+            var subject = new Subject { Id = 1, Name = "Math" };
+            var teacher = new Teacher { Id = 1, FirstName = "John", LastName = "Doe", Email = "outlook@com", Phone = "123456789" };
+
+            context.Subjects.Add(subject);
+            context.Students.Add(student);
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
+
             var grade = new Grade
             {
                 Value = 95.5,
                 Date = new DateOnly(2025, 5, 1),
                 Comment = "Excellent performance",
-                StudentId = 18,
+                StudentId = 1,
                 SubjectId = 1,
                 TeacherId = 1
             };
@@ -101,12 +112,23 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var gradeBusiness = new GradeBusiness(context);
+
+            var parent = new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" };
+            var student = new Student { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "outlook@com" };
+            var subject = new Subject { Id = 1, Name = "Math" };
+            var teacher = new Teacher { Id = 1, FirstName = "John", LastName = "Doe", Email = "outlook@com", Phone = "123456789" };
+
+            context.Subjects.Add(subject);
+            context.Students.Add(student);
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
+
             var grade = new Grade 
             { 
                 Value = 88.0, 
                 Date = new DateOnly(2025, 5, 3), 
                 Comment = "Satisfactory", 
-                StudentId = 18, 
+                StudentId = 1, 
                 SubjectId = 1, 
                 TeacherId = 1 
             };
@@ -128,6 +150,17 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var gradeBusiness = new GradeBusiness(context);
+
+            var parent = new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" };
+            var student = new Student { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "outlook@com" };
+            var subject = new Subject { Id = 1, Name = "Math" };
+            var teacher = new Teacher { Id = 1, FirstName = "John", LastName = "Doe", Email = "outlook@com", Phone = "123456789" };
+
+            context.Subjects.Add(subject);
+            context.Students.Add(student);
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
+
             var grade = new Grade 
             { 
                 Value = 70.0, Date = new DateOnly(2025, 5, 4), 
@@ -156,12 +189,23 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var gradeBusiness = new GradeBusiness(context);
+
+            var parent = new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" };
+            var student = new Student { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "outlook@com" };
+            var subject = new Subject { Id = 1, Name = "Math" };
+            var teacher = new Teacher { Id = 1, FirstName = "John", LastName = "Doe", Email = "outlook@com", Phone = "123456789" };
+
+            context.Subjects.Add(subject);
+            context.Students.Add(student);
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
+
             var grade = new Grade 
             { 
                 Value = 60.0, 
                 Date = new DateOnly(2025, 5, 5), 
                 Comment = "Poor", 
-                StudentId = 18, 
+                StudentId = 1, 
                 SubjectId = 1, 
                 TeacherId = 1 
             };

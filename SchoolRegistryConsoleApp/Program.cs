@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Business;
+using Data;
 using Data.Models;
 using SchoolRegistryConsoleApp.Presentation;
 using SchoolRegistryConsoleApp.Presentation;
@@ -157,6 +158,16 @@ namespace SchoolRegistryConsoleApp
             Console.WriteLine("6. Teachers" + new string(' ', 109));
             Console.WriteLine("7. Clear database" + new string(' ', 103));
             Console.WriteLine("8. Close Application" + new string(' ', 100));
+            using (var customQueries = new CustomQueriesBusiness())
+            {
+                Console.WriteLine(new string(' ', 120));
+                Console.WriteLine($"Total students: {customQueries.GetTotalStudents(), 3}" + new string(new string(' ', 101)));
+                Console.WriteLine($"Total teachers: {customQueries.GetTotalTeachers(), 3}" + new string(new string(' ', 101)));
+                Console.WriteLine($"Total classes: {customQueries.GetTotalClasses(), 3}" + new string(new string(' ', 102)));
+                Console.WriteLine($"Total parents: {customQueries.GetTotalParents(), 3}" + new string(new string(' ', 102)));
+                Console.WriteLine($"Most popular subject: {customQueries.GetMostPopularSubject(), 13}" + new string(new string(' ', 85)));
+                Console.WriteLine($"Teacher with most classes: {customQueries.GetTeacherWithMostClasses(), 13}" + new string(new string(' ', 80)));
+            }
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }

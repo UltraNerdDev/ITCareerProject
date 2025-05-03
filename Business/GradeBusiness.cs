@@ -24,8 +24,6 @@ namespace Business
             _context = new SchoolRegistryContext();
         }
 
-        //Commented code does not work for the ToString() method
-
         //Get All method returning all of the Grade objects
         public List<Grade> GetAll()
         {
@@ -39,11 +37,11 @@ namespace Business
         //Get method returning a single Grade object by given ID
         public Grade Get(int id)
         {
-            //return _context.Grades
-            //    .Include(g => g.Student)
-            //    .Include(g => g.Subject)
-            //    .FirstOrDefault(g => g.Id == id);
-            return _context.Grades.Find(id);
+            return _context.Grades
+                .Include(g => g.Student)
+                .Include(g => g.Subject)
+                .FirstOrDefault(g => g.Id == id);
+            //return _context.Grades.Find(id);
         }
 
         //Add method for adding new Grade object to the database
@@ -56,11 +54,11 @@ namespace Business
         //Delete method for deleting existing Grade object in the database by given ID
         public void Delete(int id)
         {
-            //var item = _context.Grades
-            //    .Include(g => g.Student)
-            //    .Include(g => g.Subject)
-            //    .FirstOrDefault(g => g.Id == id);
-            var item = _context.Grades.Find(id);
+            var item = _context.Grades
+                .Include(g => g.Student)
+                .Include(g => g.Subject)
+                .FirstOrDefault(g => g.Id == id);
+            //var item = _context.Grades.Find(id);
             if (item != null)
             {
                 _context.Grades.Remove(item);

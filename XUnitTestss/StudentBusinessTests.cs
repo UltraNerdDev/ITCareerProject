@@ -28,6 +28,11 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var studentBusiness = new StudentBusiness(context);
+
+            context.Parents.Add(new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" });
+            context.Classes.Add(new ClassGroup { Id = 1, Name = "Class A", Year = 2023 });
+            context.SaveChanges();
+
             var student = new Student
             {
                 FirstName = "John",
@@ -80,6 +85,11 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var studentBusiness = new StudentBusiness(context);
+
+            context.Parents.Add(new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" });
+            context.Classes.Add(new ClassGroup { Id = 1, Name = "Class A", Year = 2023 });
+            context.SaveChanges();
+
             var student = new Student
             {
                 FirstName = "Charlie",
@@ -106,6 +116,11 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var studentBusiness = new StudentBusiness(context);
+
+            context.Parents.Add(new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" });
+            context.Classes.Add(new ClassGroup { Id = 1, Name = "Class A", Year = 2023 });
+            context.SaveChanges();
+
             var student = new Student
             {
                 FirstName = "David",
@@ -133,6 +148,11 @@ namespace XUnitTestss
             // Arrange
             using var context = GetInMemoryContext();
             using var studentBusiness = new StudentBusiness(context);
+
+            context.Parents.Add(new Parent { Id = 1, FirstName = "John", LastName = "Doe", Email = "gmail@com" });
+            context.Classes.Add(new ClassGroup { Id = 1, Name = "Class A", Year = 2023 });
+            context.SaveChanges();
+
             var student = new Student
             {
                 FirstName = "Eve",

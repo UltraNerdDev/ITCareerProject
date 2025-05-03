@@ -143,11 +143,9 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            int id = 0;
-            Console.WriteLine("All current Parents:");
-            ListAll();
+            
             Console.WriteLine("Enter ID to fetch: ");
-            id = InputHelper.GetValidInt("Enter ID to fetch:");
+            int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Parent parent = business.Get(id);
             if (parent != null)
             {

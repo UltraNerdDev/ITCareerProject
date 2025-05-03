@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Business;
+using Data;
 using Data.Models;
 using System;
 using System.Collections.Generic;
@@ -133,8 +134,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current subjects:");
-            ListAll();
             
             int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Subject subject = business.Get(id);

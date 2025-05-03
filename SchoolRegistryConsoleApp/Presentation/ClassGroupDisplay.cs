@@ -171,8 +171,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current classes:");
-            ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to fetch:");
             ClassGroup classGroup = classBusiness.Get(id);

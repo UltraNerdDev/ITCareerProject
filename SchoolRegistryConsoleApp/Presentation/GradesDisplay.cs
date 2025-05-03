@@ -267,8 +267,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current grades:");
-            ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Grade grade = gradeBusiness.Get(id);

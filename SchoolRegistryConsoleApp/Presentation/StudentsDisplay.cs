@@ -260,8 +260,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current students:");
-            ListAll();
 
             int id = InputHelper.GetValidInt("Enter ID to delete:");
             Student student = studentBusiness.Get(id);

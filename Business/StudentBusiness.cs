@@ -38,12 +38,12 @@ namespace Business
         //Get method returning a single Student object by given ID
         public Student Get(int id)
         {
-            //return _context.Students
-            //    .Include(s => s.ClassGroup)
-            //    .Include(s => s.Parent)
-            //    .Include(s => s.Grades)
-            //    .FirstOrDefault(s => s.Id == id);
-            return _context.Students.Find(id);
+            return _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == id);
+            //return _context.Students.Find(id);
         }
 
         //Add method for adding new Student object to the database
@@ -56,12 +56,12 @@ namespace Business
         //Delete method for deleting Student object from the database by given ID
         public void Delete(int id)
         {
-            //var item = _context.Students
-            //    .Include(s => s.ClassGroup)
-            //    .Include(s => s.Parent)
-            //    .Include(s => s.Grades)
-            //    .FirstOrDefault(s => s.Id == id);
-            var item = _context.Students.Find(id);
+            var item = _context.Students
+                .Include(s => s.ClassGroup)
+                .Include(s => s.Parent)
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == id);
+            //var item = _context.Students.Find(id);
             if (item != null)
             {
                 _context.Students.Remove(item);

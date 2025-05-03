@@ -196,8 +196,6 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current teachers:");
-            ListAll();
             
             int id = InputHelper.GetValidInt("Enter ID to fetch:");
             Teacher teacher = teacherBusiness.Get(id);
