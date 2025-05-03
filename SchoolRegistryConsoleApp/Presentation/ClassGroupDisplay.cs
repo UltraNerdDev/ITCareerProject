@@ -63,7 +63,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.WriteLine("None");
             else
                 foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName, 15}");
+                    Console.WriteLine($"{item.Id,-5} {item.FirstName + " " + item.LastName, 15}");
             Console.WriteLine(new string('-', 25));
             // Get valid teacher ID using InputHelper class
             int teachedId = InputHelper.GetValidForeignKey(
@@ -136,13 +136,13 @@ namespace SchoolRegistryConsoleApp.Presentation
                     Console.WriteLine("None");
                 else
                     foreach (var item in items)
-                        Console.WriteLine($"{item.Id,-5} {item.FirstName,15}");
+                        Console.WriteLine($"{item.Id,-5} {item.FirstName + " " + item.LastName, 15}");
                 Console.WriteLine(new string('-', 25));
                 // Get valid teacher ID using InputHelper class
                 classGroup.TeacherId = InputHelper.GetValidForeignKey(
                     "Enter teacher ID:",
-                    context => context.Classes
-                );
+                    context => context.Teachers
+                    );
 
                 classBusiness.Update(classGroup);
 

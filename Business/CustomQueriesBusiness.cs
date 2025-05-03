@@ -72,6 +72,12 @@ namespace Business
             return _context.Parents.Count();
         }
 
+        //Query 7: Get the total number of subjects
+        public int GetTotalSubjects()
+        {
+            return _context.Subjects.Count();
+        }
+
         //Dispose method for closing the context
         public void Dispose()
         {

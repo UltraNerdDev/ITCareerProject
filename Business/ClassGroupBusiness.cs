@@ -30,13 +30,17 @@ namespace Business
         //Get All method returning all of the ClassGroup objects
         public List<ClassGroup> GetAll()
         {
-            return _context.Classes.ToList();
+            return _context.Classes
+                .Include(c => c.Teacher)
+                .ToList();
         }
 
         //Get method returning a single ClassGroup object by given ID
         public ClassGroup Get(int id)
         {
-            return _context.Classes.Find(id);
+            return _context.Classes
+                .Include(c => c.Teacher) 
+                .FirstOrDefault(c => c.Id == id);
         }
 
         //Add method for adding new ClassGroup object to the database

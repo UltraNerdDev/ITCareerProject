@@ -184,6 +184,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                         break;
                     Console.WriteLine("Invalid grade value. Please enter a value between 2 and 6.");
                 }
+                grade.Value = gradeValue;
 
                 //Get date
                 grade.Date = DateOnly.Parse(InputHelper.GetNonEmptyString("Enter grade date (dd.MM.yyyy):"));
@@ -220,7 +221,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                         Console.WriteLine($"ID: {item.Id,-5} {item.Name,15}");
                 Console.WriteLine(new string('-', 25));
                 // Get valid subject ID
-                grade.StudentId = InputHelper.GetValidForeignKey(
+                grade.SubjectId = InputHelper.GetValidForeignKey(
                     "Enter subject ID:",
                     context => context.Subjects
                 );

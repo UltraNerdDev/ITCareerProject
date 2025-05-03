@@ -41,7 +41,6 @@ namespace Business
                 .Include(g => g.Student)
                 .Include(g => g.Subject)
                 .FirstOrDefault(g => g.Id == id);
-            //return _context.Grades.Find(id);
         }
 
         //Add method for adding new Grade object to the database
@@ -58,7 +57,6 @@ namespace Business
                 .Include(g => g.Student)
                 .Include(g => g.Subject)
                 .FirstOrDefault(g => g.Id == id);
-            //var item = _context.Grades.Find(id);
             if (item != null)
             {
                 _context.Grades.Remove(item);

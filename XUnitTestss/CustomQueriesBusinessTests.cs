@@ -18,12 +18,15 @@ namespace XUnitTestss
         public CustomQueriesBusinessTests()
         {
             var options = new DbContextOptionsBuilder<SchoolRegistryContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(databaseName: "CustomQueriesBusinessTestDB")
                 .Options;
 
+            //creating the context
             _context = new SchoolRegistryContext(options);
             _customQueries = new CustomQueriesBusiness(_context);
-
+            //ensuring the in-memory database is clear every time it is being deployed
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
             SeedDatabase();
         }
 
@@ -62,6 +65,16 @@ namespace XUnitTestss
         {
             // Act
             var result = _customQueries.GetTotalStudents();
+
+            // Assert
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public void GetTotalSubjects_ShouldReturnCorrectCount()
+        {
+            // Act
+            var result = _customQueries.GetTotalSubjects();
 
             // Assert
             Assert.Equal(2, result);

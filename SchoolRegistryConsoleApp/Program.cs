@@ -160,13 +160,16 @@ namespace SchoolRegistryConsoleApp
             Console.WriteLine("8. Close Application" + new string(' ', 100));
             using (var customQueries = new CustomQueriesBusiness())
             {
-                Console.WriteLine(new string(' ', 120));
+                Console.WriteLine(new string('-', 120));
                 Console.WriteLine($"Total students: {customQueries.GetTotalStudents(), 3}" + new string(new string(' ', 101)));
+                Console.WriteLine($"Total subjects: {customQueries.GetTotalSubjects(), 3}" + new string(new string(' ', 101)));
                 Console.WriteLine($"Total teachers: {customQueries.GetTotalTeachers(), 3}" + new string(new string(' ', 101)));
                 Console.WriteLine($"Total classes: {customQueries.GetTotalClasses(), 3}" + new string(new string(' ', 102)));
                 Console.WriteLine($"Total parents: {customQueries.GetTotalParents(), 3}" + new string(new string(' ', 102)));
-                Console.WriteLine($"Most popular subject: {customQueries.GetMostPopularSubject(), 13}" + new string(new string(' ', 85)));
+                Console.WriteLine($"Most popular subject: {customQueries.GetMostPopularSubject(), 10}" + new string(new string(' ', 88)));
                 Console.WriteLine($"Teacher with most classes: {customQueries.GetTeacherWithMostClasses(), 13}" + new string(new string(' ', 80)));
+                Console.WriteLine(new string('-', 120));
+                Console.WriteLine("Enter a command ID: " + new string(' ', 100));
             }
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
