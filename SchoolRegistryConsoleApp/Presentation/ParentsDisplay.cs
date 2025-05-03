@@ -11,7 +11,6 @@ namespace SchoolRegistryConsoleApp.Presentation
     //Display class for Parents, using the business layer to perform CRUD operations and enhancing the UI experience
     public class ParentsDisplay : Display
     {
-        private int closeOperationId = 6;
         private ParentBusiness business = new ParentBusiness();
 
         public ParentsDisplay()
@@ -62,7 +61,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
                 return;
             }
-            else if (keyInfo.Key != ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
                 string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
@@ -212,7 +211,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
                 return;
             }
-            else if (keyInfo.Key != ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 int id = InputHelper.GetValidInt("Enter ID to delete:");
                 Parent parent = business.Get(id);

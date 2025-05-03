@@ -11,7 +11,6 @@ namespace SchoolRegistryConsoleApp.Presentation
     //Display class for Teachers, using the business layer to perform CRUD operations and enhancing the UI experience
     internal class TeachersDisplay : Display
     {
-        private int closeOperationId = 6;
         private TeacherBusiness teacherBusiness = new TeacherBusiness();
         private SubjectBusiness subjectBusiness = new SubjectBusiness();
 

@@ -13,7 +13,6 @@ namespace SchoolRegistryConsoleApp.Presentation
     //Display class for Subjects, using the business layer to perform CRUD operations and enhancing the UI experience
     public class SubjectDisplay : Display
     {
-        private int closeOperationId = 6;
         private SubjectBusiness business = new SubjectBusiness();
 
         public SubjectDisplay()

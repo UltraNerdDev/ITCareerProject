@@ -12,7 +12,6 @@ namespace SchoolRegistryConsoleApp.Presentation
     //Display class for ClassGroup, using the business layer to perform CRUD operations and enhancing the UI 
     public class ClassGroupDisplay : Display
     {
-        private int closeOperationId = 6;
         private ClassGroupBusiness classBusiness = new ClassGroupBusiness();
         private TeacherBusiness teacherBusiness = new TeacherBusiness();
         
@@ -65,7 +64,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
                 return;
             }
-            else if (keyInfo.Key != ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 string name = InputHelper.GetNonEmptyString("Enter class group's name:");
                 int year = InputHelper.GetValidIntYear("Enter class group's year:");
@@ -239,7 +238,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 Console.BackgroundColor = ConsoleColor.Black;
                 return;
             }
-            else if (keyInfo.Key != ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 int id = InputHelper.GetValidInt("Enter ID to delete:");
                 ClassGroup classgroup = classBusiness.Get(id);

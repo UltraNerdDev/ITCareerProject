@@ -12,8 +12,7 @@ namespace SchoolRegistryConsoleApp.Presentation
 {
     //Display class for Students, using the business layer to perform CRUD operations and enhancing the UI experience
     public class StudentsDisplay : Display
-    {
-        private int closeOperationId = 6;        
+    {    
         private StudentBusiness studentBusiness = new StudentBusiness();
         private ParentBusiness  parentBusiness = new ParentBusiness();
         private ClassGroupBusiness groupBusiness = new ClassGroupBusiness();
