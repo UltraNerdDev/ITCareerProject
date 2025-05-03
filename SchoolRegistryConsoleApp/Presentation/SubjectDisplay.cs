@@ -51,22 +51,48 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
 
-            string name = InputHelper.GetNonEmptyString("Enter subject's name:");
-
-            var subject = new Subject
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                Name = name
-            };
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if(keyInfo.Key == ConsoleKey.Enter)
+            {
+                string name = InputHelper.GetNonEmptyString("Enter subject's name:");
 
-            business.Add(subject);
+                var subject = new Subject
+                {
+                    Name = name
+                };
 
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Subject added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+                business.Add(subject);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Subject added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //ListAll method realising the logic of listing all of the Subject objects in the database with UI
@@ -158,24 +184,51 @@ namespace SchoolRegistryConsoleApp.Presentation
         //Delete method realising the logic of deleting an existing Subject object in the database with UI
         public override void Delete()
         {
+            
             Console.Clear();
             ShowMenu();
-            Console.WriteLine("All current subjects");
+            Console.WriteLine("All current subjects:");
             ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            Subject subject = business.Get(id);
-
-            if (subject != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            // Check if ESC is pressed
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                business.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if(keyInfo.Key == ConsoleKey.Enter)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                Subject subject = business.Get(id);
+                if (subject != null)
+                {
+                    business.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Subject with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Subject with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -183,7 +236,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Subject with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

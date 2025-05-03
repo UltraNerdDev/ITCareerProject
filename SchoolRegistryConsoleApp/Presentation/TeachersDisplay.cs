@@ -50,54 +50,80 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
 
-            string firstName = InputHelper.GetNonEmptyString("Enter teacher's first name:");
-            string lastName = InputHelper.GetNonEmptyString("Enter teacher's last name:");
-            string email = InputHelper.GetNonEmptyString("Enter teacher's email:");
-            Console.WriteLine("Enter teacher's phone (optional)");
-            string phone = Console.ReadLine()?.Trim();
-            if (string.IsNullOrWhiteSpace(phone)) phone = "none";
-
-            Console.WriteLine("Avalible subjects: ");
-            var items = subjectBusiness.GetAll();
-            if (items.Count == 0)
-                Console.WriteLine("None");
-            else
-                foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.Name,15}");
-            // Get optional SubjectId
-            Console.WriteLine("Enter subject ID (or press Enter to skip):");
-            string subjectIdInput = Console.ReadLine()?.Trim();
-            int? subjectId = null;
-            if (!string.IsNullOrWhiteSpace(subjectIdInput) && int.TryParse(subjectIdInput, out int parsedSubjectId))
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                // Validate the entered SubjectId
-                if (items.Any(s => s.Id == parsedSubjectId))
-                    subjectId = parsedSubjectId;
-                else
-                {
-                    Console.WriteLine("Invalid subject ID. Skipping subject assignment.");
-                    subjectId = null;
-                }
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
             }
-
-            var teacher = new Teacher
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                Phone = phone,
-                SubjectId = subjectId
-            };
+                string firstName = InputHelper.GetNonEmptyString("Enter teacher's first name:");
+                string lastName = InputHelper.GetNonEmptyString("Enter teacher's last name:");
+                string email = InputHelper.GetNonEmptyString("Enter teacher's email:");
+                Console.WriteLine("Enter teacher's phone (optional)");
+                string phone = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(phone)) phone = "none";
 
-            teacherBusiness.Add(teacher);
+                Console.WriteLine("Avalible subjects: ");
+                var items = subjectBusiness.GetAll();
+                if (items.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in items)
+                        Console.WriteLine($"{item.Id,-5} {item.Name,15}");
+                // Get optional SubjectId
+                Console.WriteLine("Enter subject ID (or press Enter to skip):");
+                string subjectIdInput = Console.ReadLine()?.Trim();
+                int? subjectId = null;
+                if (!string.IsNullOrWhiteSpace(subjectIdInput) && int.TryParse(subjectIdInput, out int parsedSubjectId))
+                {
+                    // Validate the entered SubjectId
+                    if (items.Any(s => s.Id == parsedSubjectId))
+                        subjectId = parsedSubjectId;
+                    else
+                    {
+                        Console.WriteLine("Invalid subject ID. Skipping subject assignment.");
+                        subjectId = null;
+                    }
+                }
 
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Teacher added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+                var teacher = new Teacher
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    Phone = phone,
+                    SubjectId = subjectId
+                };
+
+                teacherBusiness.Add(teacher);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Teacher added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //Lists all teachers in the database
@@ -225,19 +251,45 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("All current teachers:");
             ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            Teacher teacher = teacherBusiness.Get(id);
-
-            if (teacher != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            // Check if ESC is pressed
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                teacherBusiness.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Teacher with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                Teacher teacher = teacherBusiness.Get(id);
+                if (teacher != null)
+                {
+                    teacherBusiness.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Teacher with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Teacher with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -245,7 +297,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Teacher with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

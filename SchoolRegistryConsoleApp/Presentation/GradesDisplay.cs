@@ -52,90 +52,116 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
 
-            //Get valid grade value (2-6)
-            double gradeValue;
-            while (true)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                gradeValue = double.Parse(InputHelper.GetNonEmptyString("Enter grade value (2-6):"));
-                if (gradeValue >= 2 && gradeValue <= 6)
-                    break;
-                Console.WriteLine("Invalid grade value. Please enter a value between 2 and 6.");
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
             }
-
-            //Get date
-            DateOnly gradeDate = DateOnly.Parse(InputHelper.GetNonEmptyString("Enter grade date (dd.MM.yyyy):"));
-
-            //Get comment (optional)
-            Console.WriteLine("Enter comment (optional):");
-            string comment = Console.ReadLine()?.Trim();
-            if (string.IsNullOrWhiteSpace(comment)) comment = "none";
-
-            //Displaying the available students, subjects and teachers
-            var itim = studentBusiness.GetAll();
-            Console.WriteLine("Avalible students:");
-            Console.WriteLine(new string('-', 25));
-            if (itim.Count == 0)
-                Console.WriteLine("None");
-            else
-                foreach (var item in itim)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
-            Console.WriteLine(new string('-', 25));
-            // Get valid student ID
-            int studentId = InputHelper.GetValidForeignKey(
-                "Enter student ID:",
-                context => context.Students
-            );
-
-            var items = subjectBusiness.GetAll();
-            Console.WriteLine("Avalible subjects:");
-            Console.WriteLine(new string('-', 25));
-            if (items.Count == 0)
-            Console.WriteLine("None");
-            else
-                foreach (var item in items)
-                    Console.WriteLine($"ID: {item.Id,-5} {item.Name,15}");
-            Console.WriteLine(new string('-', 25));
-            // Get valid subject ID
-            int subjectId = InputHelper.GetValidForeignKey(
-                "Enter subject ID:",
-                context => context.Subjects
-            );
-
-            var omom = teacherBusiness.GetAll();
-            Console.WriteLine("Avalible teachers:");
-            Console.WriteLine(new string('-', 25));
-            if (omom.Count == 0)
-                Console.WriteLine("None");
-            else
-                foreach (var item in omom)
-                    Console.WriteLine($"ID: {item.Id,-5} {item.FirstName,7} {item.LastName}");
-            Console.WriteLine(new string('-', 25));
-            // Get valid teacher ID
-            int teacherId = InputHelper.GetValidForeignKey(
-                "Enter teacher ID:",
-                context => context.Teachers
-            );
-
-            // Create and add the grade
-            var grade = new Grade
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Value = gradeValue,
-                Date = gradeDate,
-                Comment = comment,
-                StudentId = studentId,
-                SubjectId = subjectId,
-                TeacherId = teacherId
-            };
+                //Get valid grade value (2-6)
+                double gradeValue;
+                while (true)
+                {
+                    gradeValue = double.Parse(InputHelper.GetNonEmptyString("Enter grade value (2-6):"));
+                    if (gradeValue >= 2 && gradeValue <= 6)
+                        break;
+                    Console.WriteLine("Invalid grade value. Please enter a value between 2 and 6.");
+                }
 
-            gradeBusiness.Add(grade);
+                //Get date
+                DateOnly gradeDate = DateOnly.Parse(InputHelper.GetNonEmptyString("Enter grade date (dd.MM.yyyy):"));
 
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Grade added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+                //Get comment (optional)
+                Console.WriteLine("Enter comment (optional):");
+                string comment = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(comment)) comment = "none";
+
+                //Displaying the available students, subjects and teachers
+                var itim = studentBusiness.GetAll();
+                Console.WriteLine("Avalible students:");
+                Console.WriteLine(new string('-', 25));
+                if (itim.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in itim)
+                        Console.WriteLine($"{item.Id,-5} {item.FirstName,7} {item.LastName}");
+                Console.WriteLine(new string('-', 25));
+                // Get valid student ID
+                int studentId = InputHelper.GetValidForeignKey(
+                    "Enter student ID:",
+                    context => context.Students
+                );
+
+                var items = subjectBusiness.GetAll();
+                Console.WriteLine("Avalible subjects:");
+                Console.WriteLine(new string('-', 25));
+                if (items.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in items)
+                        Console.WriteLine($"ID: {item.Id,-5} {item.Name,15}");
+                Console.WriteLine(new string('-', 25));
+                // Get valid subject ID
+                int subjectId = InputHelper.GetValidForeignKey(
+                    "Enter subject ID:",
+                    context => context.Subjects
+                );
+
+                var omom = teacherBusiness.GetAll();
+                Console.WriteLine("Avalible teachers:");
+                Console.WriteLine(new string('-', 25));
+                if (omom.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in omom)
+                        Console.WriteLine($"ID: {item.Id,-5} {item.FirstName,7} {item.LastName}");
+                Console.WriteLine(new string('-', 25));
+                // Get valid teacher ID
+                int teacherId = InputHelper.GetValidForeignKey(
+                    "Enter teacher ID:",
+                    context => context.Teachers
+                );
+
+                // Create and add the grade
+                var grade = new Grade
+                {
+                    Value = gradeValue,
+                    Date = gradeDate,
+                    Comment = comment,
+                    StudentId = studentId,
+                    SubjectId = subjectId,
+                    TeacherId = teacherId
+                };
+
+                gradeBusiness.Add(grade);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Grade added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //ListAll method realising the logic of listing all of the Grades objects in the database with UI
@@ -297,19 +323,44 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("All current grades:");
             ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            Grade grade = gradeBusiness.Get(id);
-
-            if (grade != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                gradeBusiness.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Grade with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                Grade grade = gradeBusiness.Get(id);
+                if (grade != null)
+                {
+                    gradeBusiness.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Grade with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Grade with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -317,7 +368,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Grade with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

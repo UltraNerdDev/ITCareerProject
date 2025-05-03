@@ -128,7 +128,7 @@ namespace SchoolRegistryConsoleApp
                             break;
                     }
                 }
-                else
+                //else
                     Console.Clear();
                 if (operation != closeOperationId)
                     Console.Clear();
@@ -166,7 +166,7 @@ namespace SchoolRegistryConsoleApp
                 Console.WriteLine($"Total teachers: {customQueries.GetTotalTeachers(), 3}" + new string(new string(' ', 101)));
                 Console.WriteLine($"Total classes: {customQueries.GetTotalClasses(), 3}" + new string(new string(' ', 102)));
                 Console.WriteLine($"Total parents: {customQueries.GetTotalParents(), 3}" + new string(new string(' ', 102)));
-                Console.WriteLine($"Most popular subject: {customQueries.GetMostPopularSubject(), 10}" + new string(new string(' ', 88)));
+                Console.WriteLine($"Most popular subject: {customQueries.GetMostPopularSubject(), 15}" + new string(new string(' ', 83)));
                 Console.WriteLine($"Teacher with most classes: {customQueries.GetTeacherWithMostClasses(), 13}" + new string(new string(' ', 80)));
                 Console.WriteLine(new string('-', 120));
                 Console.WriteLine("Enter a command ID: " + new string(' ', 100));

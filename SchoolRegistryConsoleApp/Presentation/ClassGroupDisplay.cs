@@ -50,43 +50,69 @@ namespace SchoolRegistryConsoleApp.Presentation
         public override void Add()
         {
             Console.Clear();
-            ShowMenu();          
-
-            string name = InputHelper.GetNonEmptyString("Enter class group's name:");
-            int year = InputHelper.GetValidIntYear("Enter class group's year:");
-
-            //Displaying all avalible teachers
-            Console.WriteLine("Avalible teachers:");
-            var items = teacherBusiness.GetAll();
-            Console.WriteLine(new string('-', 25));
-            if (items.Count == 0)
-                Console.WriteLine("None");
-            else
-                foreach (var item in items)
-                    Console.WriteLine($"{item.Id,-5} {item.FirstName + " " + item.LastName, 15}");
-            Console.WriteLine(new string('-', 25));
-            // Get valid teacher ID using InputHelper class
-            int teachedId = InputHelper.GetValidForeignKey(
-                    "Enter teacher ID:",
-                    context => context.Teachers
-                    );
-
-            var classGroup = new ClassGroup
-            {
-                Name = name,
-                Year = year,
-                TeacherId = teachedId
-            };
-
-            classBusiness.Add(classGroup);
-
-            Console.Clear();
             ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Class added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key != ConsoleKey.Escape)
+            {
+                string name = InputHelper.GetNonEmptyString("Enter class group's name:");
+                int year = InputHelper.GetValidIntYear("Enter class group's year:");
+
+                //Displaying all avalible teachers
+                Console.WriteLine("Avalible teachers:");
+                var items = teacherBusiness.GetAll();
+                Console.WriteLine(new string('-', 25));
+                if (items.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in items)
+                        Console.WriteLine($"{item.Id,-5} {item.FirstName + " " + item.LastName,15}");
+                Console.WriteLine(new string('-', 25));
+                // Get valid teacher ID using InputHelper class
+                int teachedId = InputHelper.GetValidForeignKey(
+                        "Enter teacher ID:",
+                        context => context.Teachers
+                        );
+
+                var classGroup = new ClassGroup
+                {
+                    Name = name,
+                    Year = year,
+                    TeacherId = teachedId
+                };
+
+                classBusiness.Add(classGroup);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Class added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //ListAll method realising the logic of listing all ClassGroup objects from the database with UI
@@ -200,19 +226,44 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.WriteLine("All current classes:");
             ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            ClassGroup classgroup = classBusiness.Get(id);
-
-            if (classgroup != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                classBusiness.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Class with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key != ConsoleKey.Escape)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                ClassGroup classgroup = classBusiness.Get(id);
+                if (classgroup != null)
+                {
+                    classBusiness.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Class with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Class with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -220,7 +271,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Class with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

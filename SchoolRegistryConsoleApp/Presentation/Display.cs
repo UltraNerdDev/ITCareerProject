@@ -16,8 +16,8 @@ namespace SchoolRegistryConsoleApp.Presentation
 
         public Display()
         {
-            context = new SchoolRegistryContext();
-            Input();
+            context = new SchoolRegistryContext(); //Every display is provided with a context object
+            Input(); //The input method is called right after the display object is created
         }
 
         //Shows the user menu of the given entity on the console

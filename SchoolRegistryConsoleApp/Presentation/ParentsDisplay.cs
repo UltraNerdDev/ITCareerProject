@@ -49,30 +49,56 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
 
-            string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
-            string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
-            Console.WriteLine("Enter parent's phone (optional): ");
-            string phone = Console.ReadLine()?.Trim();
-            if (string.IsNullOrWhiteSpace(phone)) phone = null;
-            string email = InputHelper.GetNonEmptyString("Enter parent's email:");
-
-            var parent = new Parent
+            Console.WriteLine("Press ESC to cancel or any other key to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                FirstName = firstName,
-                LastName = lastName,
-                PhoneNumber = phone,
-                Email = email
-            };
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key != ConsoleKey.Escape)
+            {
+                string firstName = InputHelper.GetNonEmptyString("Enter parent's first name:");
+                string lastName = InputHelper.GetNonEmptyString("Enter parent's last name:");
+                Console.WriteLine("Enter parent's phone (optional): ");
+                string phone = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(phone)) phone = null;
+                string email = InputHelper.GetNonEmptyString("Enter parent's email:");
 
-            business.Add(parent);
+                var parent = new Parent
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PhoneNumber = phone,
+                    Email = email
+                };
 
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Parent added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+                business.Add(parent);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Parent added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //ListAll method realising the logic of listing all of the Parent objects in the database with UI
@@ -170,21 +196,47 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
+            Console.WriteLine("All avalible parents:");
             ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            Parent parent = business.Get(id);
-
-            if (parent != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                business.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Parent with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key != ConsoleKey.Escape)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                Parent parent = business.Get(id);
+                if (parent != null)
+                {
+                    business.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Parent with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Parent with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -192,7 +244,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Parent with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

@@ -53,82 +53,108 @@ namespace SchoolRegistryConsoleApp.Presentation
             Console.Clear();
             ShowMenu();
 
-            string firstName = InputHelper.GetNonEmptyString("Enter student's first name:");
-            string lastName = InputHelper.GetNonEmptyString("Enter student's last name:");
-            string email = InputHelper.GetNonEmptyString("Enter student's email:");
-            Console.WriteLine("Enter student's age: (optional)");
-            string ageString = Console.ReadLine()?.Trim();
-            Console.WriteLine("Enter enrolment date (optional): YYYY");
-            string dateString = Console.ReadLine()?.Trim();
-
-            int? date = null;
-            if(!string.IsNullOrWhiteSpace(dateString))
+            Console.WriteLine("Press ESC to cancel or any other key to continue the add operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                if (int.TryParse(dateString, out int parsedDate))
-                    date = parsedDate;
-                else
-                    Console.WriteLine("Invalid date entered. Date will be left empty.");
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                return;
             }
-
-            int? age = null;
-            if (!string.IsNullOrWhiteSpace(ageString))
+            else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                if (int.TryParse(ageString, out int parsedAge))
-                    age = parsedAge;
+                string firstName = InputHelper.GetNonEmptyString("Enter student's first name:");
+                string lastName = InputHelper.GetNonEmptyString("Enter student's last name:");
+                string email = InputHelper.GetNonEmptyString("Enter student's email:");
+                Console.WriteLine("Enter student's age: (optional)");
+                string ageString = Console.ReadLine()?.Trim();
+                Console.WriteLine("Enter enrolment date (optional): YYYY");
+                string dateString = Console.ReadLine()?.Trim();
+
+                int? date = null;
+                if (!string.IsNullOrWhiteSpace(dateString))
+                {
+                    if (int.TryParse(dateString, out int parsedDate))
+                        date = parsedDate;
+                    else
+                        Console.WriteLine("Invalid date entered. Date will be left empty.");
+                }
+
+                int? age = null;
+                if (!string.IsNullOrWhiteSpace(ageString))
+                {
+                    if (int.TryParse(ageString, out int parsedAge))
+                        age = parsedAge;
+                    else
+                        Console.WriteLine("Invalid age entered. Age will be left empty.");
+                }
+
+                var omom = groupBusiness.GetAll();
+                Console.WriteLine("Avalible classes:");
+                Console.WriteLine(new string('-', 21));
+                if (omom.Count == 0)
+                    Console.WriteLine("None");
                 else
-                    Console.WriteLine("Invalid age entered. Age will be left empty.");
+                    foreach (var item in omom)
+                        Console.WriteLine($"{item.Id,-5} {item.Name,7}");
+                Console.WriteLine(new string('-', 21));
+                // Get valid class group ID
+                int classGroupId = InputHelper.GetValidForeignKey(
+                    "Enter class group ID:",
+                    context => context.Classes
+                );
+
+                var itim = parentBusiness.GetAll();
+                Console.WriteLine("Avalible parents:");
+                Console.WriteLine(new string('-', 21));
+                if (itim.Count == 0)
+                    Console.WriteLine("None");
+                else
+                    foreach (var item in itim)
+                        Console.WriteLine($"{item.Id,-3} {item.FirstName,6} {item.LastName,6}");
+                Console.WriteLine(new string('-', 21));
+                // Get valid parent ID
+                int parentId = InputHelper.GetValidForeignKey(
+                    "Enter parent ID:",
+                    context => context.Parents
+                );
+
+                var student = new Student
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    Age = age,
+                    ClassGroupId = classGroupId,
+                    EnrollmentDate = date,
+                    ParentId = parentId
+                };
+
+                studentBusiness.Add(student);
+
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Student added successfully.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
-
-            var omom = groupBusiness.GetAll();
-            Console.WriteLine("Avalible classes:");
-            Console.WriteLine(new string('-', 21));
-            if (omom.Count == 0)
-                Console.WriteLine("None");
             else
-                foreach (var item in omom)
-                    Console.WriteLine($"{item.Id,-5} {item.Name,7}");
-            Console.WriteLine(new string('-', 21));
-            // Get valid class group ID
-            int classGroupId = InputHelper.GetValidForeignKey(
-                "Enter class group ID:",
-                context => context.Classes
-            );
-
-            var itim = parentBusiness.GetAll();
-            Console.WriteLine("Avalible parents:");
-            Console.WriteLine(new string('-', 21));
-            if (itim.Count == 0)
-                Console.WriteLine("None");
-            else
-                foreach (var item in itim)
-                    Console.WriteLine($"{item.Id,-3} {item.FirstName,6} {item.LastName,6}");
-            Console.WriteLine(new string('-', 21));
-            // Get valid parent ID
-            int parentId = InputHelper.GetValidForeignKey(
-                "Enter parent ID:",
-                context => context.Parents
-            );
-
-            var student = new Student
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                Age = age,
-                ClassGroupId = classGroupId,
-                EnrollmentDate = date,
-                ParentId = parentId
-            };
-
-            studentBusiness.Add(student);
-
-            Console.Clear();
-            ShowMenu();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Student added successfully.");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+                Console.Clear();
+                ShowMenu();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Invalid key pressed. Add operation canceled.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
         //ListAll method realising the logic of listing all of the Student objects in the database with UI
@@ -260,20 +286,48 @@ namespace SchoolRegistryConsoleApp.Presentation
         {
             Console.Clear();
             ShowMenu();
+            Console.WriteLine("All avalible students");
+            ListAll();
 
-            int id = InputHelper.GetValidInt("Enter ID to delete:");
-            Student student = studentBusiness.Get(id);
-
-            if (student != null)
+            Console.WriteLine("Press ESC to cancel or ENTER to continue the delete operation:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            // Check if ESC is pressed
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                studentBusiness.Delete(id);
                 Console.Clear();
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Student with ID: {id} deleted successfully.");
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.WriteLine("Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
+                return;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                int id = InputHelper.GetValidInt("Enter ID to delete:");
+                Student student = studentBusiness.Get(id);
+                if (student != null)
+                {
+                    studentBusiness.Delete(id);
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Student with ID: {id} deleted successfully.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Student with ID: {id} not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
             else
             {
@@ -281,7 +335,7 @@ namespace SchoolRegistryConsoleApp.Presentation
                 ShowMenu();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Student with ID: {id} not found.");
+                Console.WriteLine("Invalid key pressed. Delete operation canceled.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }

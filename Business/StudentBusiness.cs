@@ -23,7 +23,6 @@ namespace Business
         {
             _context = new SchoolRegistryContext();
         }
-        //Commented code does not work for the ToString() method
 
         //Get All method returning all of the Student objects
         public List<Student> GetAll()
@@ -43,7 +42,6 @@ namespace Business
                 .Include(s => s.Parent)
                 .Include(s => s.Grades)
                 .FirstOrDefault(s => s.Id == id);
-            //return _context.Students.Find(id);
         }
 
         //Add method for adding new Student object to the database
@@ -61,7 +59,6 @@ namespace Business
                 .Include(s => s.Parent)
                 .Include(s => s.Grades)
                 .FirstOrDefault(s => s.Id == id);
-            //var item = _context.Students.Find(id);
             if (item != null)
             {
                 _context.Students.Remove(item);
